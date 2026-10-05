@@ -403,13 +403,8 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 @property --flav{syntax:'<color>';inherits:true;initial-value:#F2EFE6;}
 .smoothie{padding:40px 0 140px;}
 .sm-stage{--flav:#F2EFE6;--R:600px;--cy:880px;--tile:148px;position:relative;height:860px;border-radius:36px;overflow:hidden;isolation:isolate;
-  background:
-    radial-gradient(42% 36% at 50% 30%,color-mix(in srgb,var(--flav) 46%,transparent) 0%,transparent 100%),
-    radial-gradient(90% 80% at 50% 38%,color-mix(in srgb,var(--flav) 30%,#0E0F12) 0%,color-mix(in srgb,var(--flav) 10%,#0B0C0E) 62%,#08090B 100%);
+  background:#000;
   box-shadow:inset 0 0 0 1px var(--line);transition:--flav 1.1s var(--ease-out);}
-.sm-stage::before{content:"";position:absolute;left:50%;top:-10%;width:70%;height:85%;transform:translateX(-50%);z-index:0;pointer-events:none;
-  background:conic-gradient(from 180deg at 50% 0%,transparent 160deg,color-mix(in srgb,var(--flav) 40%,#fff 20%) 180deg,transparent 200deg);
-  opacity:.22;filter:blur(30px);}   /* fascio di luce dall'alto, del colore del gusto */
 .sm-wheel{position:absolute;left:50%;top:var(--cy);width:0;height:0;z-index:1;}
 .sm-tile{position:absolute;left:calc(var(--tile) / -2);top:calc(var(--tile) / -2);width:var(--tile);height:var(--tile);padding:0;border-radius:30px;overflow:hidden;background:#EFECE4;
   transform:rotate(var(--a)) translateY(calc(var(--R) * -1));box-shadow:0 24px 40px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.5);cursor:pointer;}
@@ -417,12 +412,12 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 .sm-tile:hover img{transform:scale(1.08);}
 .sm-tile:focus-visible{outline:3px solid #3CBDD2;outline-offset:4px;}
 .sm-tile[aria-checked="true"]{box-shadow:0 0 0 3px var(--mint),0 24px 40px -18px rgba(0,0,0,.6);}
-.sm-mound{position:absolute;left:50%;top:494px;width:1300px;aspect-ratio:1594/387;margin-left:-650px;z-index:4;pointer-events:none;filter:drop-shadow(0 30px 30px rgba(0,0,0,.5));}
-.sm-mound img{position:absolute;inset:0;width:100%;height:100%;}   /* una immagine già colorata per gusto: al cambio si dissolvono l'una nell'altra */
-.sm-contact{display:none;position:absolute;left:50%;top:518px;width:240px;height:40px;margin-left:-125px;z-index:2;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.55),transparent);filter:blur(4px);pointer-events:none;}   /* ombra di contatto: il bicchiere poggia sulla cima */
-.sm-glass{position:absolute;left:50%;top:60px;width:400px;height:480px;margin-left:-200px;z-index:3;filter:drop-shadow(0 30px 34px rgba(0,0,0,.5));}   /* una sola ombra sull'insieme: con due bicchieri sovrapposti durante il cambio di gusto si sommavano in un alone nero */
+.sm-bg{position:absolute;left:calc(50% - 649px);top:59px;width:1306px;aspect-ratio:1400/933;z-index:0;}   /* la foto del mucchietto (resa: bicchiere sulla vetta), una per gusto */
+.sm-bg img,.sm-front img{position:absolute;inset:0;width:100%;height:100%;}
+.sm-front{position:absolute;left:calc(50% - 649px);top:59px;width:1306px;aspect-ratio:1400/933;z-index:4;pointer-events:none;}   /* la cima della vetta davanti al fondo del bicchiere: così il bicchiere poggia dentro la polvere */
+.sm-glass{position:absolute;left:50%;top:96px;width:382px;height:458px;margin-left:-191px;z-index:3;filter:drop-shadow(0 30px 34px rgba(0,0,0,.5));}   /* una sola ombra sull'insieme: con due bicchieri sovrapposti durante il cambio di gusto si sommavano in un alone nero */
 .sm-glass img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;}
-.sm-info{position:absolute;left:50%;top:612px;padding:14px 18px 16px;border-radius:22px;background:rgba(12,13,16,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transform:translateX(-50%);z-index:5;text-align:center;width:min(520px,90%);}
+.sm-info{position:absolute;left:50%;top:594px;padding:14px 18px 16px;border-radius:22px;background:rgba(12,13,16,.6);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1);transform:translateX(-50%);z-index:5;text-align:center;width:min(520px,90%);}
 .sm-name{text-shadow:0 2px 14px rgba(0,0,0,.6);position:relative;height:1.2em;overflow:hidden;font:600 30px/1.2 'Poppins',sans-serif;letter-spacing:-.02em;}
 .sm-name span{position:absolute;left:0;right:0;}
 .sm-vals{display:flex;justify-content:center;gap:8px;margin:12px 0 0;}
@@ -447,10 +442,9 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
   .smoothie{padding:20px 0 96px;}
   .sm-stage{--R:330px;--cy:610px;--tile:92px;height:640px;border-radius:28px;}
   .sm-tile{border-radius:22px;}
-  .sm-mound{top:340px;width:1120px;margin-left:-560px;}
-  .sm-contact{top:356px;width:160px;height:28px;margin-left:-80px;}
-  .sm-glass{top:84px;width:240px;height:288px;margin-left:-120px;}
-  .sm-info{top:404px;padding:10px 12px 12px;width:min(330px,92%);}
+  .sm-bg,.sm-front{left:calc(50% - 458px);top:69px;width:922px;}
+    .sm-glass{top:96px;width:269px;height:323px;margin-left:-134.5px;}
+  .sm-info{top:423px;padding:10px 12px 12px;width:min(330px,92%);}
   .sm-vals{margin-top:8px;}
   .sm-name{font-size:24px;}
   .sm-vals{flex-wrap:wrap;gap:6px;}
@@ -535,6 +529,11 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 </style>
 </head>
 <body>
+<style>#intro-anim svg{overflow:visible}#intro-anim svg>g{clip-path:none!important}</style>
+<div id="intro" style="position:fixed;inset:0;overflow:hidden;z-index:10000;background:#141519;display:flex;align-items:center;justify-content:center;transition:opacity .35s ease"><div id="intro-anim" style="width:min(100vw,560px);aspect-ratio:1"></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
+<script src="intro-anim.js"></script>
+<script src="intro.js"></script>
 
 <nav class="nav" id="nav" aria-label="Principale">
   <div class="wrap">
@@ -759,9 +758,9 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
           <button type="button" id="sm-play" aria-label="Metti in pausa la rotazione dei gusti"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="5" width="4" height="14" rx="1"/><rect x="13.5" y="5" width="4" height="14" rx="1"/></svg></button>
           <button type="button" id="sm-next" aria-label="Gusto successivo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         </div>
+        <div class="sm-bg" id="sm-bg" aria-hidden="true"></div>
         <div class="sm-wheel" id="sm-wheel" role="radiogroup" aria-label="Gusto dello smoothie"></div>
-        <div class="sm-mound" id="sm-mound" aria-hidden="true"></div>
-        <div class="sm-contact" aria-hidden="true"></div>
+        <div class="sm-front" id="sm-front" aria-hidden="true"></div>
         <div class="sm-glass" id="sm-glass"></div>
         <div class="sm-info">
           <p class="sm-name" id="sm-name" aria-live="polite"></p>
@@ -1146,6 +1145,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
         {id:'jbisc',  name:'Biscotto',          color:'#C99556'},
       ]},
     };
+    const SM_IMG_V = '20261005d';   // versione delle immagini degli smoothie: cambiandola il browser non usa quelle vecchie in memoria
     const DOSE = 30;   // grammi di polvere, con acqua (0 kcal)
     const stage = $('sm-stage'), wheel = $('sm-wheel'), glass = $('sm-glass'), nameBox = $('sm-name'), vals = $('sm-vals');
     const M = ()=> window.Motion;
@@ -1189,37 +1189,43 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
         wheelAnim = M().animate(from === undefined ? rot : from, target, {type:'spring', bounce:.18, visualDuration:.9, onUpdate:setRot});
       } else setRot(target);
     }
+    /* Immagini di un gusto: fondo, cima davanti al bicchiere, bicchiere. Si caricano (e decodificano) prima di
+       mostrarle, così al cambio di gusto non resta mai un vuoto nero e fondo e cima passano sempre insieme */
+    const srcOf = (f)=> ['img/smx-bg-' + f.id + '.webp?v=' + SM_IMG_V, 'img/smx-front-' + f.id + '.webp?v=' + SM_IMG_V, 'img/smx-' + f.id + '.webp?v=' + SM_IMG_V];
+    function load(src){ const im = new Image(); im.decoding = 'async'; im.src = src; return (im.decode ? im.decode() : Promise.resolve()).then(()=> im, ()=> im); }
+    const warmed = new Set();
+    function preload(list){ list.forEach(f=> srcOf(f).forEach(u=>{ if(!warmed.has(u)){ warmed.add(u); load(u); } })); }
+    let pourSeq = 0;
     function pour(f, animate){
-      stage.style.setProperty('--flav', f.color);
-      // il mucchietto del colore del gusto (immagine già colorata) si dissolve sopra quello di prima
-      const mound = $('sm-mound'), oldM = Array.from(mound.querySelectorAll('img'));
-      if(!oldM.length || oldM[oldM.length - 1].dataset.id !== f.id){
-        const mi = new Image(); mi.src = 'img/smx-mound-' + f.id + '.webp'; mi.alt = ''; mi.dataset.id = f.id;
-        mound.appendChild(mi);
-        if(animate && M() && motionOk){
-          M().animate(mi, {opacity:[0,1]}, {duration:1, ease}).then(()=> oldM.forEach(o=> o.remove()));
-        } else oldM.forEach(o=> o.remove());
-      }
-      const old = Array.from(glass.querySelectorAll('img'));
+      const my = ++pourSeq;
+      // nome e valori subito
       const oldName = nameBox.querySelector('span');
       const nn = document.createElement('span'); nn.textContent = f.name; nameBox.appendChild(nn);
       vals.innerHTML = valsHtml();
-      const samePhoto = old.length && old[old.length - 1].dataset.photo === f.id;
-      let img = null;
-      if(!samePhoto){
-        img = new Image();
-        img.src = 'img/smx-' + f.id + '.webp'; img.width = 600; img.height = 720; img.dataset.photo = f.id;
-        glass.appendChild(img);
-      } else img = old.pop();
-      img.alt = 'Smoothie proteico gusto ' + f.name;
-      if(animate && M() && motionOk){
+      const anim = animate && M() && motionOk;
+      if(anim){
         const A = M().animate;
-        // il nuovo frullato riempie il bicchiere dal basso, quello vecchio si ritira
-        if(!samePhoto) A(img, {clipPath:['inset(100% 0 0 0)','inset(0% 0 0 0)'], transform:['translateY(14px) scale(.98)','translateY(0) scale(1)']}, {duration:1, ease});
-        old.forEach(o=> A(o, {opacity:[1,0]}, {duration:.7, ease, delay:.25}).then(()=> o.remove()));
         if(oldName) A(oldName, {transform:['translateY(0)','translateY(-60%)'], opacity:[1,0], filter:['blur(0px)','blur(6px)']}, {duration:.25, ease:'easeIn'}).then(()=> oldName.remove());
         nn.style.opacity = 0; A(nn, {transform:['translateY(60%)','translateY(0)'], opacity:[0,1], filter:['blur(6px)','blur(0px)']}, {duration:.5, ease, delay:.25});
-      } else { old.forEach(o=> o.remove()); if(oldName) oldName.remove(); }
+      } else if(oldName) oldName.remove();
+      // immagini: si cambia solo quando tutte e tre sono pronte
+      Promise.all(srcOf(f).map(load)).then(([bgI, frI, cupI])=>{
+        if(my !== pourSeq) return;   // nel frattempo è stato scelto un altro gusto
+        stage.style.setProperty('--flav', f.color);
+        const boxes = [[$('sm-bg'), bgI], [$('sm-front'), frI]];
+        const olds = boxes.map(([box])=> Array.from(box.querySelectorAll('img')));
+        boxes.forEach(([box, im])=>{ im.alt = ''; box.appendChild(im); });
+        const oldCups = Array.from(glass.querySelectorAll('img'));
+        cupI.width = 600; cupI.height = 720; cupI.dataset.photo = f.id; cupI.alt = 'Smoothie proteico gusto ' + f.name;
+        glass.appendChild(cupI);
+        if(anim){
+          const A = M().animate;
+          // fondo e cima si dissolvono insieme; il nuovo frullato riempie il bicchiere dal basso
+          A(boxes.map(([, im])=> im), {opacity:[0,1]}, {duration:.9, ease}).then(()=> olds.flat().forEach(o=> o.remove()));
+          A(cupI, {clipPath:['inset(100% 0 0 0)','inset(0% 0 0 0)'], transform:['translateY(14px) scale(.98)','translateY(0) scale(1)']}, {duration:1, ease});
+          oldCups.forEach(o=> A(o, {opacity:[1,0]}, {duration:.7, ease, delay:.25}).then(()=> o.remove()));
+        } else { olds.flat().forEach(o=> o.remove()); oldCups.forEach(o=> o.remove()); }
+      });
     }
     function go(delta, user){
       pos += delta; mark(); spin(true); pour(FL[cur()], true);
@@ -1232,6 +1238,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     }
     function setProduct(key, animate){
       prod = PRODUCTS[key]; FL = prod.flavors; pos = 0;
+      preload(FL);
       document.querySelectorAll('.sm-prod button').forEach(b=> b.setAttribute('aria-pressed', b.dataset.prod === key));
       $('sm-foot-prod').textContent = prod.label.toLowerCase();
       buildWheel(); mark();
@@ -1380,7 +1387,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   // l'entrata parte appena ci sono il DOM e i caratteri (al massimo 700 ms di attesa), senza aspettare tutte le immagini
   document.addEventListener('DOMContentLoaded', ()=>{
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
-    Promise.race([fonts, new Promise(r=> setTimeout(r, 700))]).then(enter);
+    Promise.all([Promise.race([fonts, new Promise(r=> setTimeout(r, 700))]), window.INTRO_DONE || Promise.resolve()]).then(enter);   // dopo l'intro del logo
   });
   function enter(){
     if(!motionOk || started) return;
