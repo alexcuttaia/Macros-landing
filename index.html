@@ -308,6 +308,19 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 1
 .show-perks{margin-top:32px;}
 .show-note{margin-top:20px;font-size:13px;color:var(--text-3);}
 
+/* Notifiche: curiosità e falsi miti che arrivano una dopo l'altra */
+.notif{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center;}
+.notif-cats{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+.notif-cats li{padding:7px 13px;border-radius:999px;background:var(--raise-2);box-shadow:inset 0 0 0 1px var(--line-2);font-size:14px;}
+.notif-cats span{color:var(--mint);font-weight:600;margin-left:3px;}
+.notif-stage{position:relative;height:440px;display:flex;flex-direction:column;gap:12px;overflow:hidden;-webkit-mask-image:linear-gradient(#000 75%,transparent);mask-image:linear-gradient(#000 75%,transparent);}
+.note{display:grid;grid-template-columns:42px 1fr;gap:4px 12px;padding:14px 16px;border-radius:22px;background:rgba(40,43,50,.78);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:inset 0 0 0 1px rgba(255,255,255,.1),0 18px 40px -22px rgba(0,0,0,.9);}
+.note img{grid-row:span 3;width:42px;height:42px;border-radius:11px;}
+.note-h{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;color:var(--text-2);}
+.note-h b{font-weight:600;color:var(--text);letter-spacing:.02em;}
+.note strong{font-size:15px;font-weight:600;line-height:1.3;}
+.note p{font-size:14px;line-height:1.4;color:var(--text-2);}
+
 /* Cucina: tre passi collegati da una linea che si disegna mentre scorri */
 .cook{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:72px;align-items:center;}
 .cook-art{position:relative;aspect-ratio:1/1;}
@@ -465,6 +478,8 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
   .chip-a{left:calc(50% - 360px);}
   .chip-b{left:calc(50% + 70px);}
   .show-row{grid-template-columns:minmax(0,1fr);gap:48px;}
+  .notif{grid-template-columns:minmax(0,1fr);gap:40px;}
+  .notif-stage{height:400px;}
   .calc{grid-template-columns:minmax(0,1fr);gap:48px;}
   .show-row.rev .show-device{order:0;}
   .show-row + .show-row{margin-top:96px;}
@@ -529,11 +544,6 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 </style>
 </head>
 <body>
-<style>#intro-anim svg{overflow:visible}#intro-anim svg>g{clip-path:none!important}</style>
-<div id="intro" style="position:fixed;inset:0;overflow:hidden;z-index:10000;background:#141519;display:flex;align-items:center;justify-content:center;transition:opacity .35s ease"><div id="intro-anim" style="width:min(100vw,560px);aspect-ratio:1"></div></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js"></script>
-<script src="intro-anim.js"></script>
-<script src="intro.js"></script>
 
 <nav class="nav" id="nav" aria-label="Principale">
   <div class="wrap">
@@ -701,6 +711,19 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
         </ul>
         <p class="show-note rv" style="--i:7">Schermata d'esempio con una giornata compilata.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="sec" id="curiosita" aria-labelledby="cur-t">
+    <div class="wrap notif">
+      <div>
+        <p class="show-kicker rv">Notifiche e consigli</p>
+        <h2 class="sec-title rv" id="cur-t" style="--i:1">Curiosità e falsi miti, ogni giorno.</h2>
+        <p class="sec-lead rv" style="--i:2">Ricevi curiosità e consigli su alimentazione e allenamento: al massimo una notifica al giorno, tra le 9 e le 21. Scegli tu frequenza, orari e argomenti, e apri ogni notifica per leggere spiegazione e fonti.</p>
+        <ul class="notif-cats rv" style="--i:3"><li>Falso mito <span class="num">40</span></li><li>Linea guida <span class="num">30</span></li><li>Curiosità <span class="num">25</span></li><li>Alimento <span class="num">40</span></li><li>Allenamento <span class="num">25</span></li><li>Recupero &amp; idratazione <span class="num">10</span></li><li>Zero &amp; dolcificanti <span class="num">20</span></li></ul>
+        <p class="show-note rv" style="--i:4">190 contenuti in 7 categorie. Su iPhone servono iOS 16.4 o successivo e l'app aggiunta alla schermata Home.</p>
+      </div>
+      <div class="notif-stage" id="notif-stage" aria-label="Esempi di notifiche" role="list"></div>
     </div>
   </section>
 
@@ -1334,6 +1357,41 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     }
   })();
 
+  /* ---------- Notifiche d'esempio: testi veri dalla cartella «curiosità» (assets/curiosita/<id>.json) ---------- */
+  (function(){
+    const NOTES = [{"c": "Falso mito", "t": "🥚 Le uova fanno alzare il colesterolo?", "b": "Non automaticamente. Per la maggior parte delle persone conta molto il pattern alimentare complessivo, soprattutto i grassi saturi."}, {"c": "Linea guida", "t": "🍬 Quanto zucchero è troppo?", "b": "L'OMS raccomanda di mantenere gli zuccheri liberi sotto il 10% dell'energia; su 2.000 kcal sono circa 50 g."}, {"c": "Curiosità", "t": "☕ Quanto caffeina c'è in un espresso?", "b": "Come ordine di grandezza, EFSA indica circa 80 mg in un espresso da 60 ml."}, {"c": "Zero & dolcificanti", "t": "🥤 Zero zuccheri = dimagrimento automatico?", "b": "No. Una bevanda zero può ridurre zuccheri e calorie rispetto alla versione zuccherata, ma da sola non fa dimagrire."}, {"c": "Allenamento", "t": "🏋️ La regola n.1? Presentarsi", "b": "Il salto più grande nei risultati spesso arriva passando da zero allenamento a un allenamento regolare."}, {"c": "Recupero & idratazione", "t": "😴 Allenarsi è lo stimolo. Dormire è parte del recupero.", "b": "Per la maggior parte degli adulti, almeno 7 ore di sonno sono un riferimento importante."}, {"c": "Alimento", "t": "🫘 Ceci, lenticchie e fagioli: più spesso", "b": "Sono fonti di fibra e proteine vegetali e aiutano a variare rispetto alle sole fonti animali."}, {"c": "Falso mito", "t": "🫀 Colesterolo nel cibo = colesterolo nel sangue?", "b": "Non è un'equazione 1:1. Il profilo lipidico dipende da molti fattori e i grassi saturi hanno un ruolo importante."}, {"c": "Linea guida", "t": "📊 Numero del giorno: 25 g", "b": "Su una dieta da 2.000 kcal, il 5% dell'energia da zuccheri liberi equivale a circa 25 g."}, {"c": "Zero & dolcificanti", "t": "🥤 Zero o zuccherata: sono identiche?", "b": "No. La versione zero in genere evita gli zuccheri aggiunti e riduce molto l'energia rispetto alla versione classica."}, {"c": "Allenamento", "t": "📅 Due giorni possono già contare", "b": "Allenare i principali gruppi muscolari almeno 2 giorni a settimana è una base solida per la salute."}, {"c": "Curiosità", "t": "🍵 Anche il tè contiene caffeina", "b": "EFSA usa circa 50 mg per una tazza di tè nero da 220 ml come riferimento indicativo."}];
+    const box = $('notif-stage');
+    const esc = t => String(t).replace(/[&<>"]/g, c=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+    let n = 0;
+    function card(x, when){
+      const el = document.createElement('div');
+      el.className = 'note'; el.setAttribute('role', 'listitem');
+      el.innerHTML = '<img src="img/icon-192.png" alt="" width="42" height="42"><div class="note-h"><b>MACRO\'S · ' + esc(x.c) + '</b><span>' + when + '</span></div><strong>' + esc(x.t) + '</strong><p>' + esc(x.b) + '</p>';
+      return el;
+    }
+    // all'inizio tre notifiche già arrivate
+    ['ora', '2 h fa', 'ieri'].forEach((w, i)=> box.appendChild(card(NOTES[i], w)));
+    n = 3;
+    if(!motionOk) return;
+    let timer = null;
+    function push(){
+      const M = window.Motion; if(!M) return;
+      const x = NOTES[n++ % NOTES.length];
+      const old = Array.from(box.children);
+      old.forEach((el, i)=>{ const s = el.querySelector('.note-h span'); if(s) s.textContent = i === 0 ? 'poco fa' : s.textContent; });
+      const el = card(x, 'ora');
+      box.insertBefore(el, box.firstChild);
+      // la nuova scende dall'alto, le altre scivolano sotto
+      M.animate(el, {opacity:[0,1], transform:['translateY(-40px) scale(.94)','translateY(0) scale(1)'], filter:['blur(6px)','blur(0px)']}, {type:'spring', bounce:.2, visualDuration:.7});
+      M.animate(old, {transform:['translateY(' + (-el.offsetHeight - 12) + 'px)','translateY(0)']}, {type:'spring', bounce:.15, visualDuration:.7});
+      if(box.children.length > 5) box.lastElementChild.remove();
+    }
+    new IntersectionObserver(es=> es.forEach(e=>{
+      clearInterval(timer);
+      if(e.isIntersecting) timer = setInterval(push, 3800);
+    }), {threshold:.3}).observe(box);
+  })();
+
   /* ---------- Cucina, salse, settimana: movimenti allo scorrimento ---------- */
   (function(){
     if(!motionOk) return;
@@ -1387,7 +1445,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   // l'entrata parte appena ci sono il DOM e i caratteri (al massimo 700 ms di attesa), senza aspettare tutte le immagini
   document.addEventListener('DOMContentLoaded', ()=>{
     const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
-    Promise.all([Promise.race([fonts, new Promise(r=> setTimeout(r, 700))]), window.INTRO_DONE || Promise.resolve()]).then(enter);   // dopo l'intro del logo
+    Promise.race([fonts, new Promise(r=> setTimeout(r, 700))]).then(enter);
   });
   function enter(){
     if(!motionOk || started) return;
