@@ -77,7 +77,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 .nav{position:sticky;top:0;z-index:30;background:rgba(20,21,25,.72);-webkit-backdrop-filter:saturate(1.4) blur(18px);backdrop-filter:saturate(1.4) blur(18px);border-bottom:1px solid transparent;transition:border-color .3s ease,background-color .3s ease;}
 .nav.scrolled{border-bottom-color:var(--line);background:rgba(20,21,25,.84);}
 .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px;}
-.nav-logo img{height:28px;width:auto;}
+.nav-logo img{height:32px;width:auto;}
 .nav-links{display:flex;align-items:center;gap:30px;font-size:14px;}
 .nav-links a:not(.btn){position:relative;color:var(--text-2);text-decoration:none;transition:color .2s ease;}
 .nav-links a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1.5px;border-radius:2px;background:var(--mint);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out);}
@@ -357,7 +357,7 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 .legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:6px;font-size:13px;color:var(--text-3);}
 
 /* Dolci proteici */
-.sweets{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;}
+.sweets{list-style:none;margin:56px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px;}
 .sweet{padding:20px 20px 22px;border-radius:24px;background:var(--raise);box-shadow:inset 0 0 0 1px var(--line);}
 .sweet img{width:100%;aspect-ratio:1/1;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(0,0,0,.5));margin-bottom:12px;transition:transform .6s var(--ease-out);}
 .sweet img.sweet-sm{padding:12%;}
@@ -541,13 +541,18 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 }
 footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 .final .bp-msg{min-height:1.5em;margin-top:16px;font-size:15px;color:var(--text-2);}   /* business plan: il PDF non c'è ancora */
+.hero-claim{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(90deg,#02aee0,#00de5a);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.sweets .sweet:last-child:nth-child(odd){grid-column:auto;}
+@media (max-width:1080px){.sweets .sweet:last-child:nth-child(odd){grid-column:1/-1;width:calc(50% - 10px);justify-self:center;}}
+.bowls.jars{margin-top:40px;grid-template-columns:repeat(4,minmax(0,1fr));}
+@media (max-width:760px){.bowls.jars{grid-template-columns:repeat(2,minmax(0,1fr));}}
 </style>
 </head>
 <body>
 
 <nav class="nav" id="nav" aria-label="Principale">
   <div class="wrap">
-    <a class="nav-logo" href="#top" aria-label="MACRO'S, torna su"><img src="img/logo-dark.webp" alt="MACRO'S" width="102" height="28"></a>
+    <a class="nav-logo" href="#top" aria-label="MACRO'S, torna su"><img src="img/logo-mark.webp" alt="MACRO'S" width="48" height="32"></a>
     <div class="nav-links">
       <a href="#calcolo">Calcolo</a>
       <a href="#match">Match</a>
@@ -565,6 +570,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 
 <header class="hero" id="top">
   <div class="wrap">
+    <p class="hero-claim" data-enter>Taste your goals</p>
     <h1><span class="line"><span>Pasti su misura</span></span><span class="line"><span>dei tuoi macro.</span></span></h1>
     <p class="hero-sub" data-enter>MACRO'S calcola il tuo fabbisogno, ti propone il piatto che lo centra e tiene il diario per te.</p>
     <div class="hero-cta" data-enter>
@@ -586,7 +592,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       <div class="device-tilt" id="device-tilt">
         <div class="device" id="hero-device">
           <div class="screen" id="screen">
-            <img class="shot" id="shot" src="img/app-home.webp" alt="Schermata Home dell'app MACRO'S" width="780" height="1688">
+            <img class="shot" id="shot" src="img/app-home.webp?v=2" alt="Schermata Home dell'app MACRO'S" width="780" height="1688">
             <span class="screen-glare" aria-hidden="true"></span>
           </div>
         </div>
@@ -686,7 +692,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 
   <section class="sec showcase" id="match" aria-labelledby="match-t">
     <div class="wrap show-row">
-      <div class="show-device" data-tilt="-1"><div class="device"><span class="screen"><img class="shot" src="img/app-match.webp" alt="Schermata Match i tuoi macro dell'app" width="780" height="1688" loading="lazy"><span class="screen-glare" aria-hidden="true"></span></span></div></div>
+      <div class="show-device" data-tilt="-1"><div class="device"><span class="screen"><img class="shot" src="img/app-match.webp?v=2" alt="Schermata Match i tuoi macro dell'app" width="780" height="1688" loading="lazy"><span class="screen-glare" aria-hidden="true"></span></span></div></div>
       <div class="show-text">
         <p class="show-kicker rv">Match i tuoi macro</p>
         <h2 class="sec-title rv" id="match-t" style="--i:1">Non sai cosa mangiare? Inserisci i tuoi macro, gli alimenti te li consigliamo noi.</h2>
@@ -698,7 +704,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       </div>
     </div>
     <div class="wrap show-row rev" id="diario">
-      <div class="show-device" data-tilt="1"><div class="device"><span class="screen"><img class="shot" src="img/app-diary.webp" alt="Schermata del diario dell'app con calorie e macro della giornata" width="780" height="1688" loading="lazy"><span class="screen-glare" aria-hidden="true"></span></span></div></div>
+      <div class="show-device" data-tilt="1"><div class="device"><span class="screen"><img class="shot" src="img/app-diary.webp?v=2" alt="Schermata del diario dell'app con calorie e macro della giornata" width="780" height="1688" loading="lazy"><span class="screen-glare" aria-hidden="true"></span></span></div></div>
       <div class="show-text">
         <p class="show-kicker rv">Diario</p>
         <h2 class="sec-title rv" style="--i:1">Il tuo diario alimentare sempre con te.</h2>
@@ -756,8 +762,8 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   <section class="sec" id="zero" aria-labelledby="zero-t">
     <div class="wrap">
       <h2 class="sec-title rv" id="zero-t">Salse e topping Zero.</h2>
-      <p class="sec-lead rv" style="--i:1">Il gusto in più, quasi senza calorie: salse Zero sui piatti e, su yogurt, porridge e crema di riso, sciroppi Zero all'acero, al cioccolato e al caramello, burri di frutta secca e frutta secca.</p>
-      <ul class="bowls" id="bowls"><li class="bowl"><img src="img/s1.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa MACRO'S Zero</b><span class="num">3 kcal per 25 g</span></li><li class="bowl"><img src="img/s2.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa BBQ Zero</b><span class="num">4 kcal per 25 g</span></li><li class="bowl"><img src="img/s7.webp" alt="" width="260" height="260" loading="lazy"><b>Ketchup Zero</b><span class="num">5 kcal per 20 g</span></li><li class="bowl"><img src="img/s8.webp" alt="" width="260" height="260" loading="lazy"><b>Honey Mustard Zero</b><span class="num">7 kcal per 20 g</span></li><li class="bowl"><img src="img/s4.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Yogurt Greco</b><span class="num">5 kcal per 30 g</span></li><li class="bowl"><img src="img/s3.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Piccante</b><span class="num">4 kcal per 20 g</span></li></ul>
+      <p class="sec-lead rv" style="--i:1">Il gusto in più, quasi senza calorie: salse Zero sui piatti e, su yogurt, porridge e crema di riso, sciroppi Zero all'acero, al cioccolato, al caramello e alla fragola, burri di frutta secca e frutta secca.</p>
+      <ul class="bowls" id="bowls"><li class="bowl"><img src="img/s1.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa MACRO'S Zero</b><span class="num">3 kcal per 25 g</span></li><li class="bowl"><img src="img/s2.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa BBQ Zero</b><span class="num">4 kcal per 25 g</span></li><li class="bowl"><img src="img/s7.webp" alt="" width="260" height="260" loading="lazy"><b>Ketchup Zero</b><span class="num">5 kcal per 20 g</span></li><li class="bowl"><img src="img/s8.webp" alt="" width="260" height="260" loading="lazy"><b>Honey Mustard Zero</b><span class="num">7 kcal per 20 g</span></li><li class="bowl"><img src="img/s4.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Yogurt Greco</b><span class="num">5 kcal per 30 g</span></li><li class="bowl"><img src="img/s3.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Piccante</b><span class="num">4 kcal per 20 g</span></li></ul><ul class="bowls jars"><li class="bowl rv" style="--i:0"><img src="img/t-sy1.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo d'Acero Zero</b><span class="num">20 kcal per 15 g</span></li><li class="bowl rv" style="--i:1"><img src="img/t-sy2.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo al Cioccolato Zero</b><span class="num">26 kcal per 15 g</span></li><li class="bowl rv" style="--i:2"><img src="img/t-sy3.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo al Caramello Zero</b><span class="num">22 kcal per 15 g</span></li><li class="bowl rv" style="--i:3"><img src="img/t-sy4.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo alla Fragola Zero</b><span class="num">9 kcal per 15 g</span></li><li class="bowl rv" style="--i:0"><img src="img/t-f4.webp" alt="" width="260" height="260" loading="lazy"><b>Burro di Arachidi</b><span class="num">59 kcal per 10 g</span></li><li class="bowl rv" style="--i:1"><img src="img/t-f9.webp" alt="" width="260" height="260" loading="lazy"><b>Crema di Mandorle</b><span class="num">61 kcal per 10 g</span></li><li class="bowl rv" style="--i:2"><img src="img/t-f10.webp" alt="" width="260" height="260" loading="lazy"><b>Crema di Nocciole</b><span class="num">65 kcal per 10 g</span></li><li class="bowl rv" style="--i:3"><img src="img/t-f15.webp" alt="" width="260" height="260" loading="lazy"><b>Crema di Pistacchio</b><span class="num">63 kcal per 10 g</span></li></ul>
     </div>
   </section>
 
@@ -765,7 +771,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     <div class="wrap">
       <h2 class="sec-title rv" id="dolci-t">Anche il dolce, con i suoi macro.</h2>
       <p class="sec-lead rv" style="--i:1">Dolci proteici senza zuccheri aggiunti, con calorie e macro calcolati come ogni altro piatto.</p>
-      <ul class="sweets"><li class="sweet rv" style="--i:0"><img src="img/d1.webp" alt="" width="420" height="420" loading="lazy"><h3>Pancake Proteici</h3><p>Tre pancake da 50 g, con topping a scelta.</p><p class="num sweet-m"><b>321 kcal</b><span><i style="background:var(--p)"></i>28</span><span><i style="background:var(--c)"></i>34</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="sweet rv" style="--i:1"><img class="sweet-sm" src="img/d2.webp" alt="" width="420" height="420" loading="lazy"><h3>Gelato Proteico</h3><p>Senza zuccheri aggiunti: scegli gusto e coppetta.</p><p class="num sweet-m"><b>155 kcal</b><span><i style="background:var(--p)"></i>16</span><span><i style="background:var(--c)"></i>14</span><span><i style="background:var(--g)"></i>4</span></p></li><li class="sweet rv" style="--i:2"><img src="img/d3.webp" alt="" width="420" height="420" loading="lazy"><h3>Cheesecake Proteica Fit</h3><p>Base d'avena e formaggio fresco magro, senza zuccheri aggiunti.</p><p class="num sweet-m"><b>302 kcal</b><span><i style="background:var(--p)"></i>34</span><span><i style="background:var(--c)"></i>24</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="sweet rv" style="--i:3"><img src="img/d4.webp" alt="" width="420" height="420" loading="lazy"><h3>Tiramisù Fit</h3><p>Mascarpone light e proteine whey, senza zuccheri aggiunti.</p><p class="num sweet-m"><b>279 kcal</b><span><i style="background:var(--p)"></i>29</span><span><i style="background:var(--c)"></i>28</span><span><i style="background:var(--g)"></i>6</span></p></li></ul>
+      <ul class="sweets"><li class="sweet rv" style="--i:0"><img src="img/d1.webp" alt="" width="420" height="420" loading="lazy"><h3>Pancake Proteici</h3><p>Tre pancake da 50 g, con topping a scelta.</p><p class="num sweet-m"><b>321 kcal</b><span><i style="background:var(--p)"></i>28</span><span><i style="background:var(--c)"></i>34</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="sweet rv" style="--i:1"><img class="sweet-sm" src="img/d2.webp" alt="" width="420" height="420" loading="lazy"><h3>Gelato Proteico</h3><p>Senza zuccheri aggiunti: scegli gusto e coppetta.</p><p class="num sweet-m"><b>155 kcal</b><span><i style="background:var(--p)"></i>16</span><span><i style="background:var(--c)"></i>14</span><span><i style="background:var(--g)"></i>4</span></p></li><li class="sweet rv" style="--i:2"><img src="img/d3.webp" alt="" width="420" height="420" loading="lazy"><h3>Cheesecake Proteica Fit</h3><p>Base d'avena e formaggio fresco magro, senza zuccheri aggiunti.</p><p class="num sweet-m"><b>302 kcal</b><span><i style="background:var(--p)"></i>34</span><span><i style="background:var(--c)"></i>24</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="sweet rv" style="--i:3"><img src="img/d4.webp" alt="" width="420" height="420" loading="lazy"><h3>Tiramisù Fit</h3><p>Mascarpone light e proteine whey, senza zuccheri aggiunti.</p><p class="num sweet-m"><b>279 kcal</b><span><i style="background:var(--p)"></i>29</span><span><i style="background:var(--c)"></i>28</span><span><i style="background:var(--g)"></i>6</span></p></li><li class="sweet rv" style="--i:4"><img src="img/d5.webp" alt="" width="420" height="420" loading="lazy"><h3>Muffin Proteici Fit</h3><p>Avena, whey e albume, senza zuccheri aggiunti: quattro gusti.</p><p class="num sweet-m"><b>169 kcal</b><span><i style="background:var(--p)"></i>21</span><span><i style="background:var(--c)"></i>17</span><span><i style="background:var(--g)"></i>2</span></p></li></ul>
     </div>
   </section>
 
