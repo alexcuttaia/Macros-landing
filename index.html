@@ -1470,7 +1470,31 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     setTimeout(reveal, 1700);
 
     // Comparse allo scorrimento: titoli dalla maschera, testi a fuoco, linee e icone disegnate
-    M.inView('.rv', el=>{ el.classList.add('is-in'); }, {amount:.25});
+    // I titoli partono ritagliati del tutto (clip-path): Chrome ed Edge li considerano invisibili e l'osservatore
+    // non scatterebbe mai, lasciandoli nascosti. Per i titoli si osserva quindi il loro contenitore, che non è ritagliato.
+    document.querySelectorAll('.rv').forEach(el=>{
+      const clipped = el.classList.contains('sec-title') || el.classList.contains('sm-title');
+      M.inView(clipped ? el.parentElement : el, ()=>{ el.classList.add('is-in'); }, {amount: clipped ? .1 : .25});
+    });
+    // Rete di sicurezza per i titoli ritagliati: allo scorrimento, se un titolo è già nella parte visibile della
+    // pagina (misurato sul suo riquadro, che il ritaglio non cambia) compare comunque.
+    (function(){
+      let pending = Array.from(document.querySelectorAll('.sec-title.rv, .sm-title.rv')), t = false;
+      function check(){
+        t = false;
+        const vh = innerHeight;
+        pending = pending.filter(el=>{
+          if(el.classList.contains('is-in')) return false;
+          const r = el.getBoundingClientRect();
+          if(r.top < vh * .9 && r.bottom > 0){ el.classList.add('is-in'); return false; }
+          return true;
+        });
+        if(!pending.length) removeEventListener('scroll', onScroll);
+      }
+      function onScroll(){ if(!t){ t = true; requestAnimationFrame(check); } }
+      addEventListener('scroll', onScroll, {passive:true});
+      check();
+    })();
     // Il piatto si compone e le barre si riempiono quando entra in vista
     M.inView('#plate', ()=>{
       M.animate('.plate-art .pa', {opacity:[0,1], transform:['translateY(60px) scale(.8) rotate(-14deg)','translateY(0) scale(1) rotate(0deg)']}, {type:'spring', bounce:.2, visualDuration:1, delay:M.stagger(.12)});
