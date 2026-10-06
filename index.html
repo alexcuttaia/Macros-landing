@@ -89,7 +89,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 .hero{position:relative;text-align:center;padding:84px 0 0;overflow-x:clip;}
 .hero-logo{display:block;width:clamp(150px,17vw,210px);height:auto;margin:0 auto 34px;}
 .will-enter .hero-logo{opacity:0;}
-.hero h1{font-size:clamp(46px,7.6vw,96px);line-height:1.04;letter-spacing:-.03em;max-width:12ch;margin:0 auto;}
+.hero h1{font-size:clamp(32px,4.4vw,58px);line-height:1.12;letter-spacing:-.025em;max-width:none;margin:0 auto;text-wrap:balance;}
+.hero h1 .line + .line{font-size:.78em;margin-top:.2em;}
+.hero h1 .line + .line > span{background:var(--brand);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em;}
 .line > span{display:block;will-change:transform;}
 .hero-sub{max-width:34em;margin:26px auto 0;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--text-2);}
@@ -548,6 +550,9 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 @media (max-width:1080px){.sweets .sweet:last-child:nth-child(odd){grid-column:1/-1;width:calc(50% - 10px);justify-self:center;}}
 .bowls.jars{margin-top:40px;grid-template-columns:repeat(4,minmax(0,1fr));}
 @media (max-width:760px){.bowls.jars{grid-template-columns:repeat(2,minmax(0,1fr));}}
+.consult-nutri{background:linear-gradient(135deg,#08F13C 0%,#22D287 100%);box-shadow:none;}
+.consult-train{background:linear-gradient(135deg,#3CBDD2 0%,#02AEE0 100%);box-shadow:none;}
+.consult-nutri h3,.consult-train h3,.consult-nutri p,.consult-train p{color:#0B1A14;}
 </style>
 </head>
 <body>
@@ -767,15 +772,15 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   <section class="sec" id="zero" aria-labelledby="zero-t">
     <div class="wrap">
       <h2 class="sec-title rv" id="zero-t">Salse e topping Zero.</h2>
-      <p class="sec-lead rv" style="--i:1">Il gusto in più, quasi senza calorie: salse Zero sui piatti e, su yogurt, porridge e crema di riso, sciroppi Zero all'acero, al cioccolato, al caramello e alla fragola, burri di frutta secca e frutta secca.</p>
-      <ul class="bowls" id="bowls"><li class="bowl"><img src="img/s1.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa MACRO'S Zero</b><span class="num">3 kcal per 25 g</span></li><li class="bowl"><img src="img/s2.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa BBQ Zero</b><span class="num">4 kcal per 25 g</span></li><li class="bowl"><img src="img/s7.webp" alt="" width="260" height="260" loading="lazy"><b>Ketchup Zero</b><span class="num">5 kcal per 20 g</span></li><li class="bowl"><img src="img/s8.webp" alt="" width="260" height="260" loading="lazy"><b>Honey Mustard Zero</b><span class="num">7 kcal per 20 g</span></li><li class="bowl"><img src="img/s4.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Yogurt Greco</b><span class="num">5 kcal per 30 g</span></li><li class="bowl"><img src="img/s3.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Piccante</b><span class="num">4 kcal per 20 g</span></li></ul><ul class="bowls jars"><li class="bowl rv" style="--i:0"><img src="img/t-sy1.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo d'Acero Zero</b><span class="num">20 kcal per 15 g</span></li><li class="bowl rv" style="--i:1"><img src="img/t-sy2.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo al Cioccolato Zero</b><span class="num">26 kcal per 15 g</span></li><li class="bowl rv" style="--i:2"><img src="img/t-sy3.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo al Caramello Zero</b><span class="num">22 kcal per 15 g</span></li><li class="bowl rv" style="--i:3"><img src="img/t-sy4.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo alla Fragola Zero</b><span class="num">9 kcal per 15 g</span></li><li class="bowl rv" style="--i:0"><img src="img/t-f4.webp" alt="" width="260" height="260" loading="lazy"><b>Burro di Arachidi</b><span class="num">59 kcal per 10 g</span></li><li class="bowl rv" style="--i:1"><img src="img/t-f9.webp" alt="" width="260" height="260" loading="lazy"><b>Crema di Mandorle</b><span class="num">61 kcal per 10 g</span></li><li class="bowl rv" style="--i:2"><img src="img/t-f10.webp" alt="" width="260" height="260" loading="lazy"><b>Crema di Nocciole</b><span class="num">65 kcal per 10 g</span></li><li class="bowl rv" style="--i:3"><img src="img/t-f15.webp" alt="" width="260" height="260" loading="lazy"><b>Crema di Pistacchio</b><span class="num">63 kcal per 10 g</span></li></ul>
+      <p class="sec-lead rv" style="--i:1">Aggiungi più gusto ai tuoi piatti senza aggiungere calorie.</p>
+      <ul class="bowls" id="bowls"><li class="bowl"><img src="img/s1.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa MACRO'S Zero</b><span class="num">3 kcal per 25 g</span></li><li class="bowl"><img src="img/s2.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa BBQ Zero</b><span class="num">4 kcal per 25 g</span></li><li class="bowl"><img src="img/s7.webp" alt="" width="260" height="260" loading="lazy"><b>Ketchup Zero</b><span class="num">5 kcal per 20 g</span></li><li class="bowl"><img src="img/s8.webp" alt="" width="260" height="260" loading="lazy"><b>Honey Mustard Zero</b><span class="num">7 kcal per 20 g</span></li><li class="bowl"><img src="img/s4.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Yogurt Greco</b><span class="num">5 kcal per 30 g</span></li><li class="bowl"><img src="img/s3.webp" alt="" width="260" height="260" loading="lazy"><b>Salsa Piccante</b><span class="num">4 kcal per 20 g</span></li></ul><ul class="bowls jars"><li class="bowl rv" style="--i:0"><img src="img/t-sy1.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo d'Acero Zero</b><span class="num">20 kcal per 15 g</span></li><li class="bowl rv" style="--i:1"><img src="img/t-sy2.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo al Cioccolato Zero</b><span class="num">26 kcal per 15 g</span></li><li class="bowl rv" style="--i:2"><img src="img/t-sy3.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo al Caramello Zero</b><span class="num">22 kcal per 15 g</span></li><li class="bowl rv" style="--i:3"><img src="img/t-sy4.webp" alt="" width="260" height="260" loading="lazy"><b>Sciroppo alla Fragola Zero</b><span class="num">9 kcal per 15 g</span></li></ul>
     </div>
   </section>
 
   <section class="sec" id="dolci" aria-labelledby="dolci-t">
     <div class="wrap">
-      <h2 class="sec-title rv" id="dolci-t">Anche il dolce, con i suoi macro.</h2>
-      <p class="sec-lead rv" style="--i:1">Dolci proteici senza zuccheri aggiunti, con calorie e macro calcolati come ogni altro piatto.</p>
+      <h2 class="sec-title rv" id="dolci-t">Il dolce, senza sensi di colpa.</h2>
+      <p class="sec-lead rv" style="--i:1">Dolci proteici senza zuccheri aggiunti, con calorie e macro calcolati.</p>
       <ul class="sweets"><li class="sweet rv" style="--i:0"><img src="img/d1.webp" alt="" width="420" height="420" loading="lazy"><h3>Pancake Proteici</h3><p>Tre pancake da 50 g, con topping a scelta.</p><p class="num sweet-m"><b>321 kcal</b><span><i style="background:var(--p)"></i>28</span><span><i style="background:var(--c)"></i>34</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="sweet rv" style="--i:1"><img class="sweet-sm" src="img/d2.webp" alt="" width="420" height="420" loading="lazy"><h3>Gelato Proteico</h3><p>Senza zuccheri aggiunti: scegli gusto e coppetta.</p><p class="num sweet-m"><b>155 kcal</b><span><i style="background:var(--p)"></i>16</span><span><i style="background:var(--c)"></i>14</span><span><i style="background:var(--g)"></i>4</span></p></li><li class="sweet rv" style="--i:2"><img src="img/d3.webp" alt="" width="420" height="420" loading="lazy"><h3>Cheesecake Proteica Fit</h3><p>Base d'avena e formaggio fresco magro, senza zuccheri aggiunti.</p><p class="num sweet-m"><b>302 kcal</b><span><i style="background:var(--p)"></i>34</span><span><i style="background:var(--c)"></i>24</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="sweet rv" style="--i:3"><img src="img/d4.webp" alt="" width="420" height="420" loading="lazy"><h3>Tiramisù Fit</h3><p>Mascarpone light e proteine whey, senza zuccheri aggiunti.</p><p class="num sweet-m"><b>279 kcal</b><span><i style="background:var(--p)"></i>29</span><span><i style="background:var(--c)"></i>28</span><span><i style="background:var(--g)"></i>6</span></p></li><li class="sweet rv" style="--i:4"><img src="img/d5.webp" alt="" width="420" height="420" loading="lazy"><h3>Muffin Proteici Fit</h3><p>Avena, whey e albume, senza zuccheri aggiunti: quattro gusti.</p><p class="num sweet-m"><b>169 kcal</b><span><i style="background:var(--p)"></i>21</span><span><i style="background:var(--c)"></i>17</span><span><i style="background:var(--g)"></i>2</span></p></li></ul>
     </div>
   </section>
@@ -808,8 +813,8 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 
   <section class="sec" id="integratori" aria-labelledby="integratori-t">
     <div class="wrap">
-      <h2 class="sec-title rv" id="integratori-t">Anche gli integratori, nello stesso ordine.</h2>
-      <p class="sec-lead rv" style="--i:1">Li aggiungi al pasto e finiscono nel diario con i loro valori, come tutto il resto.</p>
+      <h2 class="sec-title rv" id="integratori-t">Dal piatto al workout, tutto nello stesso posto.</h2>
+      <p class="sec-lead rv" style="--i:1">Integratori della massima qualità con brevetti certificati.</p>
       <dl class="supps">
         <div class="rv"><dt>Proteine</dt><dd>Whey Protein, Whey Isolate e Caseine Micellari, in barattolo o come smoothie.</dd></div>
         <div class="rv" style="--i:1"><dt>Vitamine e minerali</dt><dd>Multivitaminico, Vitamina D3 + K2, Magnesio bisglicinato, Zinco e altri.</dd></div>
@@ -818,33 +823,6 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
         <div class="rv" style="--i:4"><dt>Intra-workout</dt><dd>EAA, Ciclodestrine, Sali minerali e un intra-workout completo.</dd></div>
         <div class="rv" style="--i:5"><dt>Post-workout</dt><dd>Creatina Monoidrata Creapure® e Glutammina.</dd></div>
       </dl>
-    </div>
-  </section>
-
-  <section class="sec" id="funzioni" aria-labelledby="funzioni-t">
-    <div class="wrap feats">
-      <div class="feats-head">
-        <h2 class="sec-title rv" id="funzioni-t">Sai sempre cosa ti manca.</h2>
-        <p class="sec-lead rv" style="--i:1">Dal primo calcolo al pasto ordinato, tutto resta collegato ai tuoi obiettivi.</p>
-      </div>
-      <ul class="flist">
-        <li class="rv" style="--i:1">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 3v3"/><path pathLength="1" d="M5.5 8.5h13l-1.4 10.2a2 2 0 0 1-2 1.8H8.9a2 2 0 0 1-2-1.8z"/><path pathLength="1" d="M9 13.5h6"/></svg>
-          <div><h3>Fabbisogno calcolato su di te</h3><p>Età, peso, altezza, attività e obiettivo diventano calorie e macro del giorno. Puoi cambiarli quando vuoi.</p></div>
-        </li>
-        <li class="rv" style="--i:3">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M4 17l5-6 4 3 7-8"/><path pathLength="1" d="M15 6h5v5"/></svg>
-          <div><h3>Si adatta al tuo peso reale</h3><p>Segni il peso e, settimana dopo settimana, l'app ricalibra il fabbisogno sul tuo andamento.</p></div>
-        </li>
-        <li class="rv" style="--i:4">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M3 7h11v9H3z"/><path pathLength="1" d="M14 10h4l3 3v3h-7"/><circle pathLength="1" cx="7" cy="17.5" r="1.8"/><circle pathLength="1" cx="17" cy="17.5" r="1.8"/></svg>
-          <div><h3>Al tavolo, ritiro o delivery</h3><p>Ordini dal QR del tavolo o da casa e segui ogni fase dell'ordine, con una notifica quando cambia stato.</p></div>
-        </li>
-        <li class="rv" style="--i:5">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 21c-4.5-2.2-7-5.6-7-10V5.5L12 3l7 2.5V11c0 4.4-2.5 7.8-7 10z"/><path pathLength="1" d="m9 12 2 2 4-4"/></svg>
-          <div><h3>Allergeni e diete</h3><p>Filtra il menu per allergeni e per dieta vegetariana o vegana.</p></div>
-        </li>
-      </ul>
     </div>
   </section>
 
@@ -871,11 +849,11 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       <h2 class="sec-title rv" id="consulenze-t">Consulenze con un professionista.</h2>
       <p class="sec-lead rv" style="--i:1">Prenoti dall'app, in sede oppure in videoconsulenza su Zoom. Il professionista vede già il tuo profilo, i tuoi obiettivi e i tuoi progressi.</p>
       <div class="consults">
-        <article class="consult rv" style="--i:2">
+        <article class="consult consult-nutri rv" style="--i:2">
           <h3>Nutrizione</h3>
           <p>Un nutrizionista analizza i tuoi dati e il tuo diario e costruisce il piano alimentare su misura, consegnato entro 3 giorni dalla consulenza.</p>
         </article>
-        <article class="consult rv" style="--i:3">
+        <article class="consult consult-train rv" style="--i:3">
           <h3>Allenamento</h3>
           <p>Un trainer valuta il tuo livello e i tuoi obiettivi e prepara la scheda: esercizi, serie e progressione settimana per settimana.</p>
         </article>
@@ -887,7 +865,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     <div class="wrap science">
       <div>
         <h2 class="sec-title rv" id="fonti-t">Calcoli con una fonte.</h2>
-        <p class="sec-lead rv" style="--i:1">Ogni numero che l'app ti dà parte da equazioni pubblicate e verificate, non da una stima a occhio.</p>
+        <p class="sec-lead rv" style="--i:1">MACRO'S utilizza equazioni pubblicate e verificate.</p>
       </div>
       <div>
         <dl class="src">
@@ -905,7 +883,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   <section class="sec" id="installa" aria-labelledby="installa-t">
     <div class="wrap">
       <h2 class="sec-title rv" id="installa-t">Sul telefono in meno di un minuto.</h2>
-      <p class="sec-lead rv" style="--i:1">MACRO'S è una web app: si aggiunge alla schermata Home dal browser, si apre a tutto schermo e si aggiorna da sola.</p>
+      <p class="sec-lead rv" style="--i:1">MACRO'S è una web app, si installa dal browser su iPhone, Android e computer.</p>
 
       <div class="install rv" style="--i:2">
         <div class="install-main">
@@ -929,7 +907,6 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
               <li><div>Scegli <span class="key">Aggiungi alla schermata Home</span> e conferma con <strong>Aggiungi</strong>.</div></li>
             </ol>
             <div class="actions"><a class="btn btn-brand" href="https://alexcuttaia.github.io/Macros/">Apri MACRO'S</a></div>
-            <p class="hint">Se questa pagina è aperta dentro Instagram, WhatsApp o un'altra app, aprila prima in Safari: dai browser interni non si può aggiungere alla Home.</p>
           </div>
 
           <div class="tabpanel" role="tabpanel" id="p-android" aria-labelledby="tab-android" tabindex="0" hidden>
