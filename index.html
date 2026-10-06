@@ -87,6 +87,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 
 /* ---------- Hero ---------- */
 .hero{position:relative;text-align:center;padding:84px 0 0;overflow-x:clip;}
+.hero-logo{display:block;width:clamp(150px,17vw,210px);height:auto;margin:0 auto 34px;}
+.will-enter .hero-logo{opacity:0;}
 .hero h1{font-size:clamp(46px,7.6vw,96px);line-height:1.04;letter-spacing:-.03em;max-width:12ch;margin:0 auto;}
 .line{display:block;overflow:hidden;padding-bottom:.06em;margin-bottom:-.06em;}
 .line > span{display:block;will-change:transform;}
@@ -541,7 +543,6 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 }
 footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 .final .bp-msg{min-height:1.5em;margin-top:16px;font-size:15px;color:var(--text-2);}   /* business plan: il PDF non c'è ancora */
-.hero-claim{margin:0 0 14px;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(90deg,#02aee0,#00de5a);-webkit-background-clip:text;background-clip:text;color:transparent;}
 .sweets .sweet:last-child:nth-child(odd){grid-column:auto;}
 @media (max-width:1080px){.sweets .sweet:last-child:nth-child(odd){grid-column:1/-1;width:calc(50% - 10px);justify-self:center;}}
 .bowls.jars{margin-top:40px;grid-template-columns:repeat(4,minmax(0,1fr));}
@@ -570,29 +571,29 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 
 <header class="hero" id="top">
   <div class="wrap">
-    <p class="hero-claim" data-enter>Taste your goals</p>
-    <h1><span class="line"><span>Pasti su misura</span></span><span class="line"><span>dei tuoi macro.</span></span></h1>
-    <p class="hero-sub" data-enter>MACRO'S calcola il tuo fabbisogno, ti propone il piatto che lo centra e tiene il diario per te.</p>
+    <img class="hero-logo" id="hero-logo" src="img/logo-full.webp" alt="MACRO'S" width="480" height="288">
+    <h1><span class="line"><span>TU SCEGLI COSA MANGIARE.</span></span><span class="line"><span>NOI LO CUCINIAMO SUI TUOI MACRO.</span></span></h1>
+    <p class="hero-sub" data-enter>Un vero ristorante, con piatti cucinati al momento e personalizzati al grammo.</p>
     <div class="hero-cta" data-enter>
       <a class="btn btn-brand" href="#installa" data-install>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11"/><path d="m7.5 10 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/></svg>
         Installa l'app
       </a>
     </div>
-    <p class="hero-note" data-enter>Niente store: si installa dal browser su iPhone, Android e computer.</p>
+    <p class="hero-note" data-enter>Web app: si installa dal browser su iPhone, Android e computer.</p>
   </div>
 
   <div class="stage">
     <div class="dish d1" data-depth="1" data-dir="-1"><div class="dish-in"><img class="float" src="img/p1.webp" alt="" width="640" height="640"></div></div>
-    <div class="dish d2" data-depth=".8" data-dir="1"><div class="dish-in"><img class="float" src="img/c4-spaghetti.webp" alt="" width="640" height="640"></div></div>
+    <div class="dish d2" data-depth=".8" data-dir="1"><div class="dish-in"><img class="float" src="img/m3.webp" alt="" width="640" height="640"></div></div>
     <div class="dish d3" data-depth=".6" data-dir="-1"><div class="dish-in"><img class="float" src="img/v3.webp" alt="" width="640" height="640"></div></div>
-    <div class="dish d4" data-depth=".7" data-dir="1"><div class="dish-in"><img class="float" src="img/c5.webp" alt="" width="640" height="640"></div></div>
+    <div class="dish d4" data-depth=".7" data-dir="1"><div class="dish-in"><img class="float" src="img/fr7.webp" alt="" width="640" height="640"></div></div>
 
     <div class="device-wrap" id="device-wrap">
       <div class="device-tilt" id="device-tilt">
         <div class="device" id="hero-device">
           <div class="screen" id="screen">
-            <img class="shot" id="shot" src="img/app-home.webp?v=2" alt="Schermata Home dell'app MACRO'S" width="780" height="1688">
+            <img class="shot" id="shot" src="img/app-home.webp?v=3" alt="Schermata Home dell'app MACRO'S" width="780" height="1688">
             <span class="screen-glare" aria-hidden="true"></span>
           </div>
         </div>
@@ -1465,8 +1466,10 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     const dishes = document.querySelectorAll('.stage .dish-in');
     const chips = document.querySelectorAll('.stage .chip-in');
 
+    // 0. logo: si mette a fuoco crescendo, con una leggera molla
+    M.animate($('hero-logo'), {opacity:[0,1], filter:['blur(10px)','blur(0px)'], transform:['scale(.82)','scale(1)']}, {type:'spring', bounce:.25, visualDuration:.9});
     // 1. titolo: le righe salgono dalla loro maschera
-    M.animate(lines, {transform:['translateY(108%)','translateY(0%)']}, {duration:1.1, ease, delay:M.stagger(.12, {startDelay:.1})});
+    M.animate(lines, {transform:['translateY(108%)','translateY(0%)']}, {duration:1.1, ease, delay:M.stagger(.12, {startDelay:.3})});
     // 2. testo e pulsanti: messa a fuoco
     M.animate(texts, {opacity:[0,1], filter:['blur(8px)','blur(0px)'], transform:['translateY(14px)','translateY(0)']}, {duration:.9, ease, delay:M.stagger(.1, {startDelay:.45})});
     // 3. telefono: sale e si raddrizza, a molla senza rimbalzo
