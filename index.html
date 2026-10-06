@@ -76,7 +76,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
 /* ---------- Barra in alto ---------- */
 .nav{position:sticky;top:0;z-index:30;background:rgba(20,21,25,.72);-webkit-backdrop-filter:saturate(1.4) blur(18px);backdrop-filter:saturate(1.4) blur(18px);border-bottom:1px solid transparent;transition:border-color .3s ease,background-color .3s ease;}
 .nav.scrolled{border-bottom-color:var(--line);background:rgba(20,21,25,.84);}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px;}
+.nav .wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:64px;gap:16px;}
+.nav .nav-btns{justify-self:end;}
 .nav-logo img{height:32px;width:auto;}
 .nav-links{display:flex;align-items:center;gap:clamp(16px,2.1vw,30px);font-size:14px;white-space:nowrap;}
 .nav-links a:not(.btn){position:relative;color:var(--text-2);text-decoration:none;transition:color .2s ease;}
@@ -571,10 +572,9 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       <a href="#cucina">Cucina</a>
       <a href="#weekly">Weekly Box</a>
       <a href="#consulenze">Consulenze</a>
-      <a href="#installa">Installa</a>
-      <div class="nav-btns">
-        <a class="btn btn-brand btn-sm" href="#installa" data-install>Installa l'app</a>
-      </div>
+    </div>
+    <div class="nav-btns">
+      <a class="btn btn-brand btn-sm" href="#installa" data-install>Installa l'app</a>
     </div>
   </div>
 </nav>
