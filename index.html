@@ -410,6 +410,12 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 .week{margin:0;padding:22px;border-radius:var(--r-l);background:var(--raise);box-shadow:inset 0 0 0 1px var(--line);}
 .week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,118px),1fr));gap:clamp(10px,1.4vw,14px);}
 .wday{display:grid;gap:12px;align-content:start;}
+/* ogni giorno occupa tre righe della griglia (giorno, pranzo, cena) condivise con gli altri giorni: se il nome di un
+   piatto va su due righe, i riquadri sotto restano comunque allineati a quelli degli altri giorni */
+@supports (grid-template-rows:subgrid){
+  .wday{grid-row:span 3;grid-template-rows:subgrid;}
+  .slot{grid-template-rows:auto 1fr;align-content:start;}
+}
 .wday b{font-size:13px;font-weight:600;color:var(--text-2);text-align:center;}
 .slot{display:grid;gap:8px;}
 .combo{position:relative;aspect-ratio:1/1;border-radius:18px;background:radial-gradient(70% 70% at 50% 45%,#2A2D33,var(--raise-2));overflow:hidden;}
