@@ -438,8 +438,11 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 @property --flav{syntax:'<color>';inherits:true;initial-value:#F2EFE6;}
 .smoothie{padding:40px 0 140px;}
 .sm-stage{--flav:#F2EFE6;--k:clamp(.72, var(--vw, 1440) / 1440, 1);--R:calc(600px * var(--k));--cy:calc(880px * var(--k));--tile:calc(148px * var(--k));position:relative;height:calc(860px * var(--k));border-radius:36px;overflow:hidden;isolation:isolate;
-  background:#000;
+  /* sopra la foto del fondo (che parte un po' più in basso del bordo) niente nero pieno: lo stesso scuro della foto,
+     tinto col gusto; la foto ci sfuma dentro (maschera su .sm-bg) */
+  background:color-mix(in srgb, var(--flav) 9%, #0a0806);
   box-shadow:inset 0 0 0 1px var(--line);transition:--flav 1.1s var(--ease-out);}
+.sm-bg{-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 90px);mask-image:linear-gradient(to bottom,transparent 0,#000 90px);}
 .sm-wheel{position:absolute;left:50%;top:var(--cy);width:0;height:0;z-index:1;}
 .sm-tile{position:absolute;left:calc(var(--tile) / -2);top:calc(var(--tile) / -2);width:var(--tile);height:var(--tile);padding:0;border-radius:30px;overflow:hidden;background:#EFECE4;
   transform:rotate(var(--a)) translateY(calc(var(--R) * -1));box-shadow:0 24px 40px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.5);cursor:pointer;}
