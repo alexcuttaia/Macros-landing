@@ -396,7 +396,10 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 .supps div::after{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:var(--line);transform-origin:left;}
 .motion-ok .supps div::after{transform:scaleX(0);transition:transform 1.2s var(--ease-out);transition-delay:calc(var(--i,0) * 80ms + 150ms);}
 .motion-ok .supps div.is-in::after{transform:scaleX(1);}
-.supps dt{font:600 19px 'Poppins',sans-serif;letter-spacing:-.01em;margin-bottom:6px;}
+.supps dt{font:600 19px 'Poppins',sans-serif;letter-spacing:-.01em;margin-bottom:6px;color:var(--mint);}
+/* titolo a sinistra, barattolo di Whey Isolate vaniglia a destra; su telefono il barattolo va sotto il testo */
+.supps-head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(24px,4vw,64px);}
+.supps-jar{width:clamp(200px,24vw,320px);height:auto;filter:drop-shadow(0 30px 40px rgba(0,0,0,.6)) drop-shadow(0 0 40px rgba(34,210,135,.18));}
 .supps dd{margin:0;color:var(--text-2);font-size:15.5px;}
 
 /* Weekly Box */
@@ -527,6 +530,8 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
   .mrow{grid-template-columns:96px 1fr 56px;gap:10px;}
   .src div{grid-template-columns:minmax(0,1fr);gap:4px;}
   .supps,.consults{grid-template-columns:minmax(0,1fr);}
+  .supps-head{grid-template-columns:minmax(0,1fr);}
+  .supps-jar{width:min(220px,60%);justify-self:center;}
   .show-device .device{--pw:250px;}
   .calc-modes{grid-template-columns:minmax(0,1fr);}
   .calc-card{grid-template-columns:1fr 110px;padding:24px 20px;}
@@ -815,8 +820,13 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 
   <section class="sec" id="integratori" aria-labelledby="integratori-t">
     <div class="wrap">
-      <h2 class="sec-title rv" id="integratori-t">Dal piatto al workout, tutto nello stesso posto.</h2>
-      <p class="sec-lead rv" style="--i:1">Integratori della massima qualità con brevetti certificati.</p>
+      <div class="supps-head">
+        <div>
+          <h2 class="sec-title rv" id="integratori-t">Dal piatto al workout, tutto nello stesso posto.</h2>
+          <p class="sec-lead rv" style="--i:1">Integratori della massima qualità con brevetti certificati.</p>
+        </div>
+        <img class="supps-jar rv" style="--i:2" src="img/iso-van.webp" alt="Barattolo di Whey Isolate al gusto vaniglia" width="600" height="600" loading="lazy">
+      </div>
       <dl class="supps">
         <div class="rv"><dt>Proteine</dt><dd>Whey Protein, Whey Isolate e Caseine Micellari, in barattolo o come smoothie.</dd></div>
         <div class="rv" style="--i:1"><dt>Vitamine e minerali</dt><dd>Multivitaminico, Vitamina D3 + K2, Magnesio bisglicinato, Zinco e altri.</dd></div>
