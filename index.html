@@ -477,7 +477,7 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
 .will-sm{clip-path:inset(0 0 100% 0 round 36px);}
 .will-sm .sm-tile,.will-sm .sm-info,.will-sm .sm-ctrl,.will-sm .sm-prod,.will-sm .sm-title .ch{opacity:0;}
 @media (max-width:760px){
-  .smoothie{padding:20px 0 96px;}
+  .smoothie{padding:0 0 0;}
   .sm-stage{--k:1;--R:330px;--cy:610px;--tile:92px;height:640px;border-radius:28px;}
   .sm-tile{border-radius:22px;}
   .sm-bg,.sm-front{left:calc(50% - 458px);top:69px;width:922px;}
@@ -551,7 +551,10 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
   .chip-top span{font-size:12px;}
   .chip-top strong{font-size:19px;}
   .chip-a .chip-in{padding:12px 14px;}
-  .sec{padding:96px 0;}
+  /* telefono: tra una sezione e l'altra 64 px (la fine della prima), non 136 */
+  .sec{padding:64px 0;}
+  .sec + .sec{padding-top:0;}
+  .smoothie + .sec{padding-top:48px;}
   .panel{padding:24px 20px;}
   .kcal strong{font-size:52px;}
   .mrow{grid-template-columns:96px 1fr 56px;gap:10px;}
@@ -574,7 +577,7 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
   .seg{display:grid;width:100%;}
   .tab{padding:0 8px;font-size:14px;gap:6px;}
   .key{white-space:normal;}
-  .final{padding:110px 0 100px;}
+  .final{padding:24px 0 80px;}
 }
 @media (max-width:400px){
   .nav .btn-sm{padding:0 12px;font-size:13px;}
