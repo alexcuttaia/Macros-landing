@@ -200,6 +200,7 @@ input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 6px rgba(255,255,
 input[type=range]:active::-webkit-slider-thumb{transform:scale(1.18);}
 input[type=range]:focus-visible{outline:none;}
 input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px rgba(60,189,210,.6);}
+.try-note{margin:0 0 12px;font-size:14px;color:var(--text-3);}   /* come la nota sotto il pulsante della hero */
 .panel-foot{margin-top:24px;font-size:13.5px;color:var(--text-3);}
 
 /* Funzioni: elenco accanto alla schermata Match */
@@ -572,7 +573,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 <header class="hero" id="top">
   <div class="wrap">
     <img class="hero-logo" id="hero-logo" src="img/logo-full.webp" alt="MACRO'S" width="480" height="288">
-    <h1><span class="line"><span>TU SCEGLI COSA MANGIARE.</span></span><span class="line"><span>NOI LO CUCINIAMO SUI TUOI MACRO.</span></span></h1>
+    <h1><span class="line"><span>Tu scegli cosa mangiare.</span></span><span class="line"><span>Noi lo cuciniamo sui tuoi macro.</span></span></h1>
     <p class="hero-sub" data-enter>Un vero ristorante, con piatti cucinati al momento e personalizzati al grammo.</p>
     <div class="hero-cta" data-enter>
       <a class="btn btn-brand" href="#installa" data-install>
@@ -619,21 +620,23 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   <section class="sec" id="piatto" aria-labelledby="piatto-t">
     <div class="wrap">
       <h2 class="sec-title rv" id="piatto-t">Il tuo pasto, al grammo.</h2>
-      <p class="sec-lead rv" style="--i:1">Componi il pasto e decidi i grammi di ogni alimento: calorie e macro si aggiornano mentre scegli. Prova con questo piatto: sposta i cursori.</p>
+      <p class="sec-lead rv" style="--i:1">Componi il pasto e decidi i grammi di ogni alimento: calorie e macro si aggiornano mentre scegli.</p>
 
       <div class="plate" id="plate">
         <div class="plate-art" aria-hidden="true">
           <div class="pa pa-1"><img src="img/p4.webp" alt="" width="640" height="640"></div>
           <div class="pa pa-2"><img src="img/c3.webp" alt="" width="640" height="640"></div>
-          <div class="pa pa-3"><img src="img/v3.webp" alt="" width="640" height="640"></div>
+          <div class="pa pa-3"><img src="img/v9.webp" alt="" width="640" height="640"></div>
           <div class="pa pa-4"><img src="img/f2.webp" alt="" width="640" height="640"></div>
           <span class="tag tag-1 num" id="tag-carne">Manzo 150 g</span>
           <span class="tag tag-2 num" id="tag-patate">Patate 200 g</span>
-          <span class="tag tag-3 num" id="tag-spinaci">Spinaci 100 g</span>
+          <span class="tag tag-3 num" id="tag-peperoni">Peperoni 100 g</span>
           <span class="tag tag-4 num" id="tag-mandorle">Mandorle 20 g</span>
         </div>
 
-        <div class="panel rv" style="--i:2">
+        <div class="panel-col rv" style="--i:2">
+        <p class="try-note">Prova con questo piatto: sposta i cursori.</p>
+        <div class="panel">
           <div class="kcal"><strong class="num" id="t-kcal">554</strong><span>kcal nel piatto</span></div>
           <div class="macros" role="group" aria-label="Macro del piatto">
             <div class="mrow"><span class="lab"><i style="background:var(--p)"></i>Proteine</span><span class="bar"><b id="b-p" style="background:var(--p)"></b></span><span class="val num" id="t-p">60 g</span></div>
@@ -650,15 +653,16 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
               <input type="range" id="r-patate" data-food="patate" min="100" max="500" step="25" value="200">
             </div>
             <div class="slider">
-              <label for="r-spinaci">Spinaci saltati <span><output class="num" id="o-spinaci" for="r-spinaci">100</output> g</span></label>
-              <input type="range" id="r-spinaci" data-food="spinaci" min="50" max="300" step="25" value="100">
+              <label for="r-peperoni">Peperoni grigliati <span><output class="num" id="o-peperoni" for="r-peperoni">100</output> g</span></label>
+              <input type="range" id="r-peperoni" data-food="peperoni" min="50" max="300" step="25" value="100">
             </div>
             <div class="slider">
               <label for="r-mandorle">Mandorle <span><output class="num" id="o-mandorle" for="r-mandorle">20</output> g</span></label>
               <input type="range" id="r-mandorle" data-food="mandorle" min="10" max="80" step="5" value="20">
             </div>
           </div>
-          <p class="panel-foot">Valori per 100 g dal menu MACRO'S: manzo 187 kcal, patate al forno 93, spinaci 28, mandorle 579.</p>
+          <p class="panel-foot">Valori per 100 g dal menu MACRO'S: manzo 187 kcal, patate al forno 93, peperoni grigliati 32, mandorle 579.</p>
+        </div>
         </div>
       </div>
     </div>
@@ -669,7 +673,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       <div>
         <p class="show-kicker rv">Calcolo dei macronutrienti</p>
         <h2 class="sec-title rv" id="calcolo-t" style="--i:1">Le tue calorie e i tuoi macro, calcolati su di te.</h2>
-        <p class="sec-lead rv" style="--i:2">Rispondi a poche domande: età, sesso, altezza, peso, attività e obiettivo. MACRO'S calcola il fabbisogno del giorno e lo divide in proteine, carboidrati e grassi.</p>
+        <p class="sec-lead rv" style="--i:2">Rispondi a poche domande e MACRO'S calcolerà il fabbisogno del giorno dividendolo in proteine, carboidrati e grassi.</p>
         <div class="calc-modes">
           <div class="rv" style="--i:3"><b>Calcolo rapido</b><span>Quattro livelli di attività ed equazioni NASEM 2023: pronto in un minuto.</span></div>
           <div class="rv" style="--i:4"><b>Calcolo accurato</b><span>Lavoro, passi, tipo e durata degli allenamenti, massa grassa se la conosci: la stima più precisa.</span></div>
@@ -725,8 +729,8 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     <div class="wrap notif">
       <div>
         <p class="show-kicker rv">Notifiche e consigli</p>
-        <h2 class="sec-title rv" id="cur-t" style="--i:1">Curiosità e falsi miti, ogni giorno.</h2>
-        <p class="sec-lead rv" style="--i:2">Ricevi curiosità e consigli su alimentazione e allenamento: al massimo una notifica al giorno, tra le 9 e le 21. Scegli tu frequenza, orari e argomenti, e apri ogni notifica per leggere spiegazione e fonti.</p>
+        <h2 class="sec-title rv" id="cur-t" style="--i:1">Consigli, curiosità e falsi miti, sull'alimentazione e l'allenamento.</h2>
+        <p class="sec-lead rv" style="--i:2">Apri ogni notifica per leggere spiegazione e fonti.</p>
         <ul class="notif-cats rv" style="--i:3"><li>Falso mito <span class="num">40</span></li><li>Linea guida <span class="num">30</span></li><li>Curiosità <span class="num">25</span></li><li>Alimento <span class="num">40</span></li><li>Allenamento <span class="num">25</span></li><li>Recupero &amp; idratazione <span class="num">10</span></li><li>Zero &amp; dolcificanti <span class="num">20</span></li></ul>
         <p class="show-note rv" style="--i:4">190 contenuti in 7 categorie. Su iPhone servono iOS 16.4 o successivo e l'app aggiunta alla schermata Home.</p>
       </div>
@@ -739,7 +743,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       <div class="cook-art" aria-hidden="true"><img id="cook-img" src="img/p1.webp" alt="" width="640" height="640" loading="lazy"></div>
       <div>
         <h2 class="sec-title rv" id="cucina-t">Cucinato con tecniche da alta cucina.</h2>
-        <p class="sec-lead rv" style="--i:1">Alcuni piatti, come il pollo alla griglia, il salmone e il roastbeef, seguono un percorso in tre passi: per restare teneri e succosi senza aggiungere grassi.</p>
+        <p class="sec-lead rv" style="--i:1">Carni, pesce e altri ingredienti vengono preparati con tecniche studiate per preservare consistenza, succosità e sapore. Perché fit non dovrebbe mai voler dire triste.</p>
         <ol class="cook-steps" id="cook-steps">
           <li class="rv" style="--i:2"><h3>Sottovuoto</h3><p>La carne viene sigillata con la sua marinata di erbe aromatiche, così sapore e succhi restano dentro.</p></li>
           <li class="rv" style="--i:3"><h3>Cottura a bassa temperatura</h3><p>Cuoce lentamente a temperatura controllata: la consistenza resta morbida da un bordo all'altro.</p></li>
@@ -752,7 +756,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   <section class="sec" id="pronti" aria-labelledby="pronti-t">
     <div class="wrap">
       <h2 class="sec-title rv" id="pronti-t">Piatti pronti, già bilanciati.</h2>
-      <p class="sec-lead rv" style="--i:1">Quando non hai voglia di comporre il pasto, scegli un piatto pronto: ognuno ha calorie e macro calcolati, e puoi aggiungerci quello che vuoi.</p>
+      <p class="sec-lead rv" style="--i:1">Quando non hai voglia di comporre il pasto, scegli un piatto pronto: ognuno ha calorie e macro calcolati.</p>
     </div>
     <div class="marquee rv" style="--i:2">
       <ul class="marquee-track"><li class="meal"><img src="img/m1.webp" alt="" width="360" height="360" loading="lazy"><h3>Hamburger MACRO'S</h3><p class="num"><b>319 kcal</b><span><i style="background:var(--p)"></i>27</span><span><i style="background:var(--c)"></i>34</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="meal"><img src="img/m2.webp" alt="" width="360" height="360" loading="lazy"><h3>Wrap Pulled Chicken</h3><p class="num"><b>401 kcal</b><span><i style="background:var(--p)"></i>39</span><span><i style="background:var(--c)"></i>39</span><span><i style="background:var(--g)"></i>9</span></p></li><li class="meal"><img src="img/m12.webp" alt="" width="360" height="360" loading="lazy"><h3>Wrap Manzo Tex Mex</h3><p class="num"><b>544 kcal</b><span><i style="background:var(--p)"></i>39</span><span><i style="background:var(--c)"></i>55</span><span><i style="background:var(--g)"></i>18</span></p></li><li class="meal"><img src="img/m3.webp" alt="" width="360" height="360" loading="lazy"><h3>Pasta al Ragù di Manzo Magro</h3><p class="num"><b>448 kcal</b><span><i style="background:var(--p)"></i>25</span><span><i style="background:var(--c)"></i>76</span><span><i style="background:var(--g)"></i>6</span></p></li><li class="meal"><img src="img/m4.webp" alt="" width="360" height="360" loading="lazy"><h3>Paella di Verdure e Pollo</h3><p class="num"><b>468 kcal</b><span><i style="background:var(--p)"></i>21</span><span><i style="background:var(--c)"></i>82</span><span><i style="background:var(--g)"></i>6</span></p></li><li class="meal"><img src="img/m5.webp" alt="" width="360" height="360" loading="lazy"><h3>Pasta alla Genovese Fit</h3><p class="num"><b>497 kcal</b><span><i style="background:var(--p)"></i>27</span><span><i style="background:var(--c)"></i>84</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="meal"><img src="img/m7.webp" alt="" width="360" height="360" loading="lazy"><h3>Pizza in Teglia Fit</h3><p class="num"><b>561 kcal</b><span><i style="background:var(--p)"></i>34</span><span><i style="background:var(--c)"></i>65</span><span><i style="background:var(--g)"></i>19</span></p></li><li class="meal"><img src="img/m10.webp" alt="" width="360" height="360" loading="lazy"><h3>Nuggets di Pollo</h3><p class="num"><b>309 kcal</b><span><i style="background:var(--p)"></i>35</span><span><i style="background:var(--c)"></i>23</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="meal"><img src="img/m14.webp" alt="" width="360" height="360" loading="lazy"><h3>Polpette di Manzo Magro</h3><p class="num"><b>274 kcal</b><span><i style="background:var(--p)"></i>36</span><span><i style="background:var(--c)"></i>6</span><span><i style="background:var(--g)"></i>12</span></p></li><li class="meal"><img src="img/m15.webp" alt="" width="360" height="360" loading="lazy"><h3>Porridge</h3><p class="num"><b>325 kcal</b><span><i style="background:var(--p)"></i>17</span><span><i style="background:var(--c)"></i>50</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="meal"><img src="img/m16.webp" alt="" width="360" height="360" loading="lazy"><h3>Insalata Mista</h3><p class="num"><b>176 kcal</b><span><i style="background:var(--p)"></i>9</span><span><i style="background:var(--c)"></i>11</span><span><i style="background:var(--g)"></i>11</span></p></li><li class="meal"><img src="img/m17.webp" alt="" width="360" height="360" loading="lazy"><h3>Spaghetti di Konjac in Stile Asiatico</h3><p class="num"><b>190 kcal</b><span><i style="background:var(--p)"></i>29</span><span><i style="background:var(--c)"></i>11</span><span><i style="background:var(--g)"></i>2</span></p></li><li class="meal"><img src="img/m11.webp" alt="" width="360" height="360" loading="lazy"><h3>Crema di Riso Proteica</h3><p class="num"><b>491 kcal</b><span><i style="background:var(--p)"></i>37</span><span><i style="background:var(--c)"></i>81</span><span><i style="background:var(--g)"></i>1</span></p></li><li class="meal"><img src="img/m13.webp" alt="" width="360" height="360" loading="lazy"><h3>Riso al Sugo</h3><p class="num"><b>395 kcal</b><span><i style="background:var(--p)"></i>8</span><span><i style="background:var(--c)"></i>84</span><span><i style="background:var(--g)"></i>3</span></p></li><li class="meal" aria-hidden="true"><img src="img/m1.webp" alt="" width="360" height="360" loading="lazy"><h3>Hamburger MACRO'S</h3><p class="num"><b>319 kcal</b><span><i style="background:var(--p)"></i>27</span><span><i style="background:var(--c)"></i>34</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="meal" aria-hidden="true"><img src="img/m2.webp" alt="" width="360" height="360" loading="lazy"><h3>Wrap Pulled Chicken</h3><p class="num"><b>401 kcal</b><span><i style="background:var(--p)"></i>39</span><span><i style="background:var(--c)"></i>39</span><span><i style="background:var(--g)"></i>9</span></p></li><li class="meal" aria-hidden="true"><img src="img/m12.webp" alt="" width="360" height="360" loading="lazy"><h3>Wrap Manzo Tex Mex</h3><p class="num"><b>544 kcal</b><span><i style="background:var(--p)"></i>39</span><span><i style="background:var(--c)"></i>55</span><span><i style="background:var(--g)"></i>18</span></p></li><li class="meal" aria-hidden="true"><img src="img/m3.webp" alt="" width="360" height="360" loading="lazy"><h3>Pasta al Ragù di Manzo Magro</h3><p class="num"><b>448 kcal</b><span><i style="background:var(--p)"></i>25</span><span><i style="background:var(--c)"></i>76</span><span><i style="background:var(--g)"></i>6</span></p></li><li class="meal" aria-hidden="true"><img src="img/m4.webp" alt="" width="360" height="360" loading="lazy"><h3>Paella di Verdure e Pollo</h3><p class="num"><b>468 kcal</b><span><i style="background:var(--p)"></i>21</span><span><i style="background:var(--c)"></i>82</span><span><i style="background:var(--g)"></i>6</span></p></li><li class="meal" aria-hidden="true"><img src="img/m5.webp" alt="" width="360" height="360" loading="lazy"><h3>Pasta alla Genovese Fit</h3><p class="num"><b>497 kcal</b><span><i style="background:var(--p)"></i>27</span><span><i style="background:var(--c)"></i>84</span><span><i style="background:var(--g)"></i>8</span></p></li><li class="meal" aria-hidden="true"><img src="img/m7.webp" alt="" width="360" height="360" loading="lazy"><h3>Pizza in Teglia Fit</h3><p class="num"><b>561 kcal</b><span><i style="background:var(--p)"></i>34</span><span><i style="background:var(--c)"></i>65</span><span><i style="background:var(--g)"></i>19</span></p></li><li class="meal" aria-hidden="true"><img src="img/m10.webp" alt="" width="360" height="360" loading="lazy"><h3>Nuggets di Pollo</h3><p class="num"><b>309 kcal</b><span><i style="background:var(--p)"></i>35</span><span><i style="background:var(--c)"></i>23</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="meal" aria-hidden="true"><img src="img/m14.webp" alt="" width="360" height="360" loading="lazy"><h3>Polpette di Manzo Magro</h3><p class="num"><b>274 kcal</b><span><i style="background:var(--p)"></i>36</span><span><i style="background:var(--c)"></i>6</span><span><i style="background:var(--g)"></i>12</span></p></li><li class="meal" aria-hidden="true"><img src="img/m15.webp" alt="" width="360" height="360" loading="lazy"><h3>Porridge</h3><p class="num"><b>325 kcal</b><span><i style="background:var(--p)"></i>17</span><span><i style="background:var(--c)"></i>50</span><span><i style="background:var(--g)"></i>7</span></p></li><li class="meal" aria-hidden="true"><img src="img/m16.webp" alt="" width="360" height="360" loading="lazy"><h3>Insalata Mista</h3><p class="num"><b>176 kcal</b><span><i style="background:var(--p)"></i>9</span><span><i style="background:var(--c)"></i>11</span><span><i style="background:var(--g)"></i>11</span></p></li><li class="meal" aria-hidden="true"><img src="img/m17.webp" alt="" width="360" height="360" loading="lazy"><h3>Spaghetti di Konjac in Stile Asiatico</h3><p class="num"><b>190 kcal</b><span><i style="background:var(--p)"></i>29</span><span><i style="background:var(--c)"></i>11</span><span><i style="background:var(--g)"></i>2</span></p></li><li class="meal" aria-hidden="true"><img src="img/m11.webp" alt="" width="360" height="360" loading="lazy"><h3>Crema di Riso Proteica</h3><p class="num"><b>491 kcal</b><span><i style="background:var(--p)"></i>37</span><span><i style="background:var(--c)"></i>81</span><span><i style="background:var(--g)"></i>1</span></p></li><li class="meal" aria-hidden="true"><img src="img/m13.webp" alt="" width="360" height="360" loading="lazy"><h3>Riso al Sugo</h3><p class="num"><b>395 kcal</b><span><i style="background:var(--p)"></i>8</span><span><i style="background:var(--c)"></i>84</span><span><i style="background:var(--g)"></i>3</span></p></li></ul>
@@ -1033,11 +1037,11 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   scrollTo(0, 0);
   $('year').textContent = new Date().getFullYear();
 
-  /* ---------- Il pasto al grammo: valori per 100 g dal menu (js/data/menu.js: p4, c3, v3, f2) ---------- */
+  /* ---------- Il pasto al grammo: valori per 100 g dal menu (js/data/menu.js: p4, c3, v9, f2) ---------- */
   const FOOD = {
     carne:    {label:'Manzo',    kcal:187, p:26,  c:0,  g:8},
     patate:   {label:'Patate',   kcal:93,  p:2,   c:21, g:0.1},
-    spinaci:  {label:'Spinaci',  kcal:28,  p:2.9, c:2,  g:1.0},
+    peperoni: {label:'Peperoni', kcal:32,  p:1,   c:6,  g:0.4},
     mandorle: {label:'Mandorle', kcal:579, p:21,  c:22, g:50},
   };
   const BAR_MAX = 120;   // la barra piena vale 120 g
