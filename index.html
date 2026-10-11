@@ -495,6 +495,13 @@ html:not(.motion-ok) .meal[aria-hidden="true"]{display:none;}
   .sm-prod button{padding:0 12px;font-size:13px;}
   .sm-title{bottom:22px;font-size:30px;}
 }
+/* telefoni stretti (320-400 px): selettore Isolate/Caseine e frecce non stanno più fianco a fianco: si stringono un poco */
+@media (max-width:400px){
+  .sm-ctrl{right:10px;top:10px;gap:6px;}
+  .sm-ctrl button{width:34px;height:34px;}
+  .sm-prod{left:10px;top:10px;padding:3px;}
+  .sm-prod button{min-height:32px;padding:0 10px;font-size:12.5px;}
+}
 
 /* ---------- Schermi medi e stretti ---------- */
 /* sotto i 960 px le sette voci del menu non stanno più su una riga: resta solo il pulsante */
@@ -593,6 +600,59 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 .consult-nutri{background:linear-gradient(135deg,#12a062 0%,#2ab871 40%,#1699cd 100%);box-shadow:0 16px 30px -18px rgba(18,160,98,.6);}
 .consult-train{background:linear-gradient(135deg,#1783c2 0%,#2ba4de 40%,#16ab69 100%);box-shadow:0 16px 30px -18px rgba(23,131,194,.6);}
 .consult-nutri h3,.consult-train h3,.consult-nutri p,.consult-train p{color:#fff;}
+/* ---------- MACRO'S Early Access (lista d'attesa): il viola del progetto (--g) su fondo scuro ---------- */
+.btn-ea{background:linear-gradient(100deg,#A48CE8 0%,#C4B3F2 100%);color:#140F24;box-shadow:0 10px 24px -12px rgba(0,0,0,.7);}
+.btn-ea:hover{filter:brightness(1.05);}
+.btn-ea svg{width:20px;height:20px;}
+.ea{position:relative;}
+.ea-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);gap:clamp(32px,5vw,72px);align-items:start;}
+.ea-kicker{margin:0 0 14px;font:600 13px 'Inter',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--g);}
+.ea-points{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:12px;color:var(--text-2);font-size:16px;}
+.ea-points li{position:relative;padding-left:28px;}
+.ea-points li::before{content:"";position:absolute;left:0;top:.45em;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 50% 50%,var(--g) 0 4px,rgba(164,140,232,.22) 5px);}
+.ea-card{background:var(--raise);border-radius:var(--r-l);padding:clamp(22px,3vw,34px);box-shadow:inset 0 0 0 1px rgba(164,140,232,.28),0 30px 60px -40px rgba(164,140,232,.45);}
+.wl-field{margin-bottom:22px;}
+.wl-field > label{display:block;margin-bottom:8px;font:600 15px 'Inter',sans-serif;color:var(--text);}
+.ea-card input[type=email],.ea-card input[type=text]{width:100%;min-height:52px;padding:0 16px;border-radius:14px;border:1px solid var(--line-2);background:var(--raise-2);color:var(--text);font:400 16px 'Inter',sans-serif;outline:none;transition:border-color .2s ease,box-shadow .2s ease;}
+.ea-card input::placeholder{color:var(--text-3);}
+.ea-card input:focus-visible{border-color:var(--g);box-shadow:0 0 0 3px rgba(164,140,232,.3);}
+.ea-card input[aria-invalid=true]{border-color:#F08A7E;}
+.wl-combo{position:relative;}
+.wl-list{position:absolute;z-index:20;left:0;right:0;top:calc(100% + 6px);margin:0;padding:6px;list-style:none;max-height:300px;overflow-y:auto;border-radius:14px;background:#262930;box-shadow:inset 0 0 0 1px var(--line-2),0 24px 50px -20px rgba(0,0,0,.9);}
+.wl-list li{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:10px;cursor:pointer;}
+.wl-list li b{font-weight:600;font-size:15px;color:var(--text);}
+.wl-list li span{font-size:13px;color:var(--text-2);}
+.wl-list li[aria-selected=true],.wl-list li:hover{background:rgba(164,140,232,.16);}
+.wl-help{margin:8px 0 0;font-size:13px;color:var(--text-3);}
+.wl-chosen{margin:8px 0 0;font-size:13.5px;color:var(--g);}
+.wl-err{margin:8px 0 0;font-size:13.5px;color:#F59A90;}
+.wl-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+.wl-chip{min-height:36px;padding:0 14px;border-radius:999px;border:0;background:var(--raise-2);box-shadow:inset 0 0 0 1px var(--line);color:var(--text-2);font:500 14px 'Inter',sans-serif;cursor:pointer;transition:background-color .2s ease,color .2s ease;}
+.wl-chip:hover{color:var(--text);}
+.wl-chip[aria-pressed=true]{background:rgba(164,140,232,.2);box-shadow:inset 0 0 0 1px var(--g);color:var(--text);}
+.wl-chip:focus-visible,.wl-check input:focus-visible,.wl-link:focus-visible{outline:2px solid var(--g);outline-offset:2px;}
+.wl-hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;}
+.wl-checks{display:grid;gap:12px;margin:4px 0 24px;}
+.wl-check{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;font-size:14px;line-height:1.5;color:var(--text-2);cursor:pointer;}
+.wl-check input{width:20px;height:20px;margin:1px 0 0;accent-color:#A48CE8;cursor:pointer;}
+.wl-check a{color:var(--text);}
+.wl-check em{font-style:normal;color:var(--text-3);}
+.wl-check + .wl-err{margin:-4px 0 0 34px;}
+.wl-submit{width:100%;}
+.wl-submit[disabled]{opacity:.7;cursor:progress;}
+.wl-free{margin:12px 0 0;text-align:center;font-size:14px;color:var(--text-2);}
+.wl-terms{margin:14px 0 0;font-size:12.5px;line-height:1.5;color:var(--text-3);}
+.wl-status{margin-top:18px;padding:16px 18px;border-radius:16px;font-size:14.5px;line-height:1.55;outline:none;}
+.wl-status strong{display:block;margin-bottom:4px;color:var(--text);}
+.wl-ok{background:rgba(164,140,232,.14);box-shadow:inset 0 0 0 1px rgba(164,140,232,.4);color:var(--text-2);}
+.wl-warn{background:rgba(224,178,58,.12);box-shadow:inset 0 0 0 1px rgba(224,178,58,.4);color:var(--text-2);}
+.wl-error{background:rgba(240,138,126,.12);box-shadow:inset 0 0 0 1px rgba(240,138,126,.4);color:#F5C2BC;}
+.wl-link{display:block;margin-top:10px;padding:0;border:0;background:none;color:var(--g);font:600 14px 'Inter',sans-serif;text-decoration:underline;cursor:pointer;text-align:left;}
+.wl-link[disabled]{color:var(--text-3);cursor:default;text-decoration:none;}
+.final-ea{margin:18px auto 0;color:var(--text-2);font-size:17px;}
+.final-ea a{color:var(--g);font-weight:600;}
+@media (max-width:900px){.ea-grid{grid-template-columns:minmax(0,1fr);}}
+@media (max-width:760px){.ea-card{padding:22px 18px;}.wl-list{max-height:240px;}}
 </style>
 <script>/* --vw: larghezza della pagina in numero puro per i fattori di scala dell'hero e degli smoothie */
 (function(){var r=document.documentElement;function s(){var w=String(r.clientWidth);if(r.style.getPropertyValue('--vw')!==w)r.style.setProperty('--vw',w);}s();addEventListener('resize',s);if(window.ResizeObserver)new ResizeObserver(s).observe(r);})();</script>
@@ -626,6 +686,10 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
       <a class="btn btn-brand" href="#installa" data-install>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11"/><path d="m7.5 10 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/></svg>
         Installa l'app
+      </a>
+      <a class="btn btn-ea" href="#early-access" data-wl-go>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6Z"/><path d="m9.5 14.5 5-5"/><circle cx="9.5" cy="9.5" r=".6" fill="currentColor"/><circle cx="14.5" cy="14.5" r=".6" fill="currentColor"/></svg>
+        Ottieni il 10% di sconto
       </a>
     </div>
     <p class="hero-note" data-enter>Web app: si installa dal browser su iPhone, Android e computer.</p>
@@ -662,6 +726,52 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
 
   </div>
 </header>
+
+  <!-- MACRO'S Early Access: lista d'attesa nazionale (js/waitlist.js → Edge Function «waitlist», server/supabase/waitlist.sql) -->
+  <section class="sec ea" id="early-access" aria-labelledby="ea-t">
+    <div class="wrap ea-grid">
+      <div class="ea-copy">
+        <p class="ea-kicker rv">MACRO'S Early Access</p>
+        <h2 class="sec-title rv" id="ea-t" style="--i:1">MACRO'S sta arrivando. Fatti trovare pronto.</h2>
+        <p class="sec-lead rv" style="--i:2">Iscriviti alla lista d'attesa, scegli la tua città e assicurati il 10% di sconto sul tuo primo ordine quando MACRO'S arriverà da te.</p>
+        <ul class="ea-points rv" style="--i:3">
+          <li>Gratis, senza account e senza acquisti.</li>
+          <li>Scegli la città in cui vorresti trovare MACRO'S, anche diversa da dove vivi.</li>
+          <li>Il 10% vale sul primo ordine reale, quando MACRO'S sarà disponibile in quella città.</li>
+        </ul>
+      </div>
+      <form class="ea-card rv" style="--i:2" id="wl-form" novalidate aria-describedby="wl-terms">
+        <div class="wl-field">
+          <label for="wl-email">Email</label>
+          <input id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" required aria-required="true" aria-describedby="wl-err-email" placeholder="nome@esempio.it">
+          <p class="wl-err" id="wl-err-email" role="alert" hidden></p>
+        </div>
+        <div class="wl-field">
+          <label for="wl-city" id="wl-city-label">In quale città vorresti trovare MACRO'S?</label>
+          <div class="wl-combo">
+            <input id="wl-city" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="wl-city-list" autocomplete="off" spellcheck="false" required aria-required="true" aria-describedby="wl-city-help wl-err-city" placeholder="Cerca il comune">
+            <ul class="wl-list" id="wl-city-list" role="listbox" aria-labelledby="wl-city-label" hidden></ul>
+          </div>
+          <input type="hidden" id="wl-city-id" name="city_id">
+          <p class="wl-help" id="wl-city-help">Tutti i comuni italiani. Non deve essere per forza dove vivi.</p>
+          <p class="wl-chosen" id="wl-city-chosen" hidden></p>
+          <p class="wl-err" id="wl-city-none" hidden>Nessun comune con questo nome: controlla come è scritto.</p>
+          <p class="wl-err" id="wl-err-city" role="alert" hidden></p>
+          <div class="wl-chips" id="wl-city-chips" role="group" aria-label="Città principali"></div>
+        </div>
+        <div class="wl-hp" aria-hidden="true"><label for="wl-website">Lascia vuoto</label><input id="wl-website" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="wl-checks">
+          <label class="wl-check"><input type="checkbox" id="wl-privacy" required aria-required="true" aria-describedby="wl-err-privacy"><span>Ho letto l'<a href="privacy.html" target="_blank" rel="noopener">informativa privacy</a> della lista d'attesa. <em>(obbligatorio)</em></span></label>
+          <p class="wl-err" id="wl-err-privacy" role="alert" hidden></p>
+          <label class="wl-check"><input type="checkbox" id="wl-marketing"><span>Voglio ricevere anche novità e offerte di MACRO'S non legate alla lista d'attesa. <em>(facoltativo, revocabile quando vuoi)</em></span></label>
+        </div>
+        <button class="btn btn-ea wl-submit" type="submit" id="wl-submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v2a3 3 0 0 0 0 6v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2a3 3 0 0 0 0-6Z"/><path d="m9.5 14.5 5-5"/><circle cx="9.5" cy="9.5" r=".6" fill="currentColor"/><circle cx="14.5" cy="14.5" r=".6" fill="currentColor"/></svg><span class="wl-btn-label">Riserva il tuo 10%</span></button>
+        <p class="wl-free">Iscrizione gratuita. Nessun acquisto obbligatorio.</p>
+        <p class="wl-terms" id="wl-terms">Lo sconto del 10% vale una sola volta, sul primo ordine reale nella città scelta, dopo la conferma dell'email e quando MACRO'S sarà disponibile lì. Non è cumulabile con altre promozioni, salvo diversa indicazione, e avrà una scadenza comunicata insieme al codice. L'iscrizione non è un ordine né una prenotazione e non garantisce un'apertura nella città scelta.</p>
+        <div class="wl-status" id="wl-status" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      </form>
+    </div>
+  </section>
 
 <main>
   <section class="sec" id="piatto" aria-labelledby="piatto-t">
@@ -1017,6 +1127,7 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
     <div class="wrap">
       <img class="mark" id="final-mark" src="img/icon-192.png?v=2" alt="" width="76" height="76">
       <h2 class="rv" id="final-t">Nutri i tuoi obiettivi.</h2>
+      <p class="final-ea rv" style="--i:1">MACRO'S non è ancora nella tua città? <a href="#early-access" data-wl-go>Entra nella lista d'attesa e riserva il 10%</a>.</p>
       <div class="hero-cta rv" style="--i:2">
         <a class="btn btn-brand" href="#installa" data-install>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11"/><path d="m7.5 10 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/></svg>
@@ -1040,6 +1151,9 @@ footer .foot-credit{flex-basis:100%;}   /* riga a sé, sotto © anno */
   </div>
 </footer>
 
+<script src="js/waitlist-config.js" defer></script>
+<script src="js/waitlist-cities.js" defer></script>
+<script src="js/waitlist.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/motion@12/dist/motion.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
 <script>

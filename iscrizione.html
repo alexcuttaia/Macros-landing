@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MACRO'S - La tua iscrizione</title>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#121317">
+<link rel="icon" type="image/png" href="img/icon-192.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pages.css">
+<style>
+main{padding:56px 0 24px;}
+main h1{font-size:clamp(28px,4.4vw,44px);margin-bottom:12px;}
+.row{display:grid;gap:10px;margin-top:22px;}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
+.check{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;font-weight:400;color:var(--text-2);cursor:pointer;}
+.check input{width:20px;height:20px;margin:2px 0 0;accent-color:#A48CE8;}
+hr{border:0;border-top:1px solid var(--line);margin:28px 0;}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap"><a href="index.html" aria-label="MACRO'S, pagina principale"><img src="img/logo-mark.webp" alt="MACRO'S" width="48" height="32"></a><a class="back" href="index.html">Torna alla pagina principale</a></div></nav>
+
+<main class="narrow" id="main" aria-live="polite">
+  <p class="kicker">MACRO'S Early Access</p>
+  <h1 id="title">Un attimo…</h1>
+  <p class="muted" id="lead">Stiamo controllando il tuo link.</p>
+  <div id="body"></div>
+</main>
+<footer>© <span id="year">2026</span> MACRO'S. Taste your goals.</footer>
+
+<script src="js/waitlist-config.js"></script>
+<script src="js/waitlist-cities.js"></script>
+<script>
+/* Conferma dell'iscrizione (#conferma=TOKEN) e gestione con il link personale (#gestisci=TOKEN).
+   Il token sta dopo il # così non arriva al server della pagina né ad altri siti; appena letto si toglie dall'indirizzo. */
+(function(){
+  'use strict';
+  var CFG = window.WAITLIST_CONFIG || {};
+  var $ = function(id){ return document.getElementById(id); };
+  document.getElementById('year').textContent = new Date().getFullYear();
+  var m = /^#(conferma|gestisci)=([A-Za-z0-9_-]{43})$/.exec(location.hash);
+  if(m) history.replaceState(null, '', location.pathname);   // il token non resta nella cronologia né nei segnalibri
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function show(title, lead, html){ $('title').textContent = title; $('lead').innerHTML = lead; $('body').innerHTML = html || ''; }
+  function call(body){
+    return fetch(CFG.endpoint, {method:'POST', headers:{'Content-Type':'application/json', 'apikey':CFG.anonKey || ''}, body:JSON.stringify(body)})
+      .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(d){ if(!r.ok) throw Object.assign(new Error('http'), {status:r.status}); return d; }); });
+  }
+  var temp = function(e){ show('Non è andata a buon fine', e && e.status === 429 ? 'Troppi tentativi in poco tempo: riprova tra qualche minuto.' : 'Si è verificato un problema temporaneo. Riapri il link tra poco.'); };
+
+  if(!m || !CFG.endpoint){ show('Link non valido', 'Il link è incompleto. Aprilo di nuovo dall\'email, senza modificarlo.', '<p><a class="btn btn-quiet" href="index.html#early-access">Vai alla lista d\'attesa</a></p>'); return; }
+  var token = m[2];
+
+  /* ---------- conferma ---------- */
+  if(m[1] === 'conferma'){
+    call({action:'confirm', token:token}).then(function(d){
+      if(d.result === 'confirmed'){
+        show('Sei nella lista d\'attesa!', 'Iscrizione confermata per <b>' + esc(d.city_name) + '</b> (' + esc(d.province) + ', ' + esc(d.region) + ').',
+          '<div class="card" style="margin-top:24px"><p style="margin:0">Quando MACRO\'S sarà disponibile a ' + esc(d.city_name) + ' riceverai il tuo codice personale per il 10% di sconto sul primo ordine. Vale una sola volta, sul primo ordine reale, entro la scadenza che ti indicheremo.</p>' +
+          '<p class="small" style="margin:14px 0 0">Iscriversi non è un ordine né un acquisto e non garantisce un\'apertura in quella città.</p></div>' +
+          (d.welcome_email === 'sent' ? '<p class="muted" style="margin-top:18px">Ti abbiamo inviato un\'email di riepilogo con il link per cambiare città, consensi o cancellarti.</p>'
+            : '<div class="notice notice-warn" style="margin-top:18px">L\'email di riepilogo non è partita: l\'invio delle email non è ancora attivo. L\'iscrizione è comunque confermata.</div>') +
+          '<div class="actions"><a class="btn btn-ea" href="index.html">Scopri MACRO\'S</a></div>');
+      } else if(d.result === 'already'){
+        show('Iscrizione già confermata', 'Questo link è già stato usato: la tua iscrizione è attiva. Per cambiare città o consensi usa il link nell\'email di riepilogo.', '<div class="actions"><a class="btn btn-quiet" href="index.html">Torna a MACRO\'S</a></div>');
+      } else if(d.result === 'expired'){
+        show('Link scaduto', 'Il link di conferma vale 48 ore. Iscriviti di nuovo con la stessa email: ti mandiamo un link nuovo, senza creare doppioni.', '<div class="actions"><a class="btn btn-ea" href="index.html#early-access">Richiedi un nuovo link</a></div>');
+      } else {
+        show('Link non valido', 'Il link non è riconosciuto: forse è incompleto o è stato sostituito da uno più recente. Usa l\'ultima email ricevuta.', '<div class="actions"><a class="btn btn-quiet" href="index.html#early-access">Vai alla lista d\'attesa</a></div>');
+      }
+    }).catch(temp);
+    return;
+  }
+
+  /* ---------- gestione: città, consenso commerciale, cancellazione ---------- */
+  var REG = window.WAITLIST_REGIONS || [], PROV = window.WAITLIST_PROVINCES || [];
+  var fold = function(s){ return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[’']/g, ' '); };
+  var CITIES = (window.WAITLIST_COMUNI || []).map(function(c){ var p = PROV[c[2]] || ['', '', 0]; return {id:c[0], name:c[1], sigla:p[0], province:p[1], region:REG[p[2]] || '', cap:c[3], f:fold(c[1])}; });
+  function search(q){
+    q = fold(q.trim()); if(!q) return [];
+    var a = [], b = [];
+    CITIES.forEach(function(c){ if(c.f.indexOf(q) === 0) a.push(c); else if(q.length >= 3 && c.f.indexOf(q) > 0) b.push(c); });
+    var s = function(x, y){ return (y.cap - x.cap) || x.name.length - y.name.length; };
+    return a.sort(s).concat(b.sort(s)).slice(0, 8);
+  }
+
+  function renderManage(d){
+    show('La tua iscrizione', 'Email: <b>' + esc(d.email_masked) + '</b> · ' + (d.status === 'confirmed' ? 'confermata' : 'in attesa di conferma'),
+      '<div class="card" style="margin-top:24px">' +
+        '<label for="city">Città in cui vorresti trovare MACRO\'S</label>' +
+        '<p class="small" style="margin:4px 0 10px">Attuale: <b style="color:var(--text)">' + esc(d.city_name) + '</b> (' + esc(d.province) + ', ' + esc(d.region) + ')</p>' +
+        '<div class="combo"><input id="city" type="text" role="combobox" aria-expanded="false" aria-controls="city-list" aria-autocomplete="list" autocomplete="off" placeholder="Cerca un altro comune"><ul id="city-list" role="listbox" hidden></ul></div>' +
+        '<div class="actions"><button class="btn btn-ea" id="save-city" type="button" disabled>Salva la nuova città</button></div>' +
+        '<hr>' +
+        '<label class="check"><input type="checkbox" id="mkt"' + (d.marketing_consent ? ' checked' : '') + '><span>Voglio ricevere anche novità e offerte di MACRO\'S non legate alla lista d\'attesa (facoltativo).</span></label>' +
+        '<hr>' +
+        '<p class="small" style="margin:0 0 12px">Cancellandoti elimini l\'iscrizione e lo sconto del 10%. L\'operazione non si può annullare.</p>' +
+        '<button class="btn btn-danger" id="del" type="button">Cancella la mia iscrizione</button>' +
+      '</div><div id="msg" role="status" style="margin-top:16px"></div>');
+    var input = $('city'), list = $('city-list'), save = $('save-city'), chosen = null, shown = [], act = -1;
+    function draw(){
+      list.innerHTML = shown.map(function(c, i){ return '<li role="option" id="o' + i + '" aria-selected="' + (i === act) + '" data-i="' + i + '"><b>' + esc(c.name) + '</b><span>' + esc(c.province + ' · ' + c.region) + '</span></li>'; }).join('');
+      list.hidden = !shown.length; input.setAttribute('aria-expanded', shown.length ? 'true' : 'false');
+      if(act >= 0) input.setAttribute('aria-activedescendant', 'o' + act); else input.removeAttribute('aria-activedescendant');
+    }
+    function pick(c){ chosen = c; input.value = c.name + ' (' + c.sigla + ')'; shown = []; act = -1; draw(); save.disabled = false; }
+    input.addEventListener('input', function(){ chosen = null; save.disabled = true; shown = search(input.value); act = shown.length ? 0 : -1; draw(); });
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'ArrowDown' && shown.length){ e.preventDefault(); act = (act + 1) % shown.length; draw(); }
+      else if(e.key === 'ArrowUp' && shown.length){ e.preventDefault(); act = (act - 1 + shown.length) % shown.length; draw(); }
+      else if(e.key === 'Enter' && act >= 0){ e.preventDefault(); pick(shown[act]); }
+      else if(e.key === 'Escape'){ shown = []; draw(); }
+    });
+    list.addEventListener('mousedown', function(e){ var li = e.target.closest('li'); if(li){ e.preventDefault(); pick(shown[+li.dataset.i]); } });
+    input.addEventListener('blur', function(){ setTimeout(function(){ shown = []; draw(); }, 120); });
+    function msg(kind, text){ $('msg').className = 'notice notice-' + kind; $('msg').textContent = text; }
+    save.addEventListener('click', function(){
+      if(!chosen) return; save.disabled = true;
+      call({action:'manage', token:token, op:'city', city_id:chosen.id}).then(function(r){ if(r.result === 'ok'){ renderManage(r); msg('ok', 'Città aggiornata: ' + r.city_name + '.'); } else msg('error', 'Link non più valido.'); })
+        .catch(function(){ save.disabled = false; msg('error', 'Non è stato possibile salvare: riprova tra poco.'); });
+    });
+    $('mkt').addEventListener('change', function(e){
+      var on = e.target.checked; e.target.disabled = true;
+      call({action:'manage', token:token, op:'marketing', marketing:on}).then(function(r){ e.target.disabled = false; if(r.result === 'ok') msg('ok', on ? 'Consenso alle comunicazioni commerciali registrato.' : 'Consenso revocato: non riceverai più comunicazioni commerciali.'); })
+        .catch(function(){ e.target.disabled = false; e.target.checked = !on; msg('error', 'Non è stato possibile salvare: riprova tra poco.'); });
+    });
+    $('del').addEventListener('click', function(){
+      if(!confirm('Vuoi davvero cancellare l\'iscrizione? Perderai lo sconto del 10%.')) return;
+      $('del').disabled = true;
+      call({action:'manage', token:token, op:'delete'}).then(function(r){
+        if(r.result === 'deleted') show('Iscrizione cancellata', 'Abbiamo eliminato la tua email e la città scelta dalla lista d\'attesa. Lo sconto del 10% non è più riservato: se cambi idea, puoi iscriverti di nuovo quando vuoi.', '<div class="actions"><a class="btn btn-quiet" href="index.html">Torna a MACRO\'S</a></div>');
+        else msg('error', 'Link non più valido.');
+      }).catch(function(){ $('del').disabled = false; msg('error', 'Non è stato possibile cancellare: riprova tra poco.'); });
+    });
+  }
+  call({action:'manage', token:token, op:'get'}).then(function(d){
+    if(d.result === 'ok') renderManage(d);
+    else show('Link non valido', 'Questo link personale non è più valido: forse ne hai ricevuto uno più recente, oppure l\'iscrizione è stata cancellata.', '<div class="actions"><a class="btn btn-quiet" href="index.html#early-access">Vai alla lista d\'attesa</a></div>');
+  }).catch(temp);
+})();
+</script>
+</body>
+</html>

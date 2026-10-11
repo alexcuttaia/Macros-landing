@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MACRO'S - Dashboard lista d'attesa</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#121317">
+<link rel="icon" type="image/png" href="img/icon-192.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/pages.css">
+<style>
+main{padding:36px 0 24px;}
+h1{font-size:clamp(26px,3.6vw,38px);}
+h2{font-size:19px;margin:0 0 14px;}
+.login{max-width:420px;margin:40px auto 0;}
+.login .row{display:grid;gap:8px;margin-top:16px;}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px;}
+.top .actions{display:flex;flex-wrap:wrap;gap:8px;}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:12px;margin-bottom:16px;}
+.kpi{background:var(--raise);border-radius:18px;padding:16px 18px;box-shadow:inset 0 0 0 1px var(--line);}
+.kpi b{display:block;font:600 28px/1.1 'Poppins',sans-serif;}
+.kpi span{font-size:13px;color:var(--text-2);}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:16px;margin-bottom:16px;}
+.panel{background:var(--raise);border-radius:22px;padding:20px;box-shadow:inset 0 0 0 1px var(--line);min-width:0;}
+.chart svg{display:block;width:100%;height:auto;}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--text-2);margin-top:8px;}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px;}
+.bars{display:grid;gap:8px;}
+.bar{display:grid;grid-template-columns:minmax(0,140px) 1fr 64px;align-items:center;gap:10px;font-size:14px;}
+.bar span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.bar .track{height:10px;border-radius:6px;background:var(--raise-2);overflow:hidden;}
+.bar .fill{height:100%;background:linear-gradient(90deg,#A48CE8,#C4B3F2);}
+.bar em{font-style:normal;text-align:right;color:var(--text-2);font-variant-numeric:tabular-nums;}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:12px;}
+.filters input,.filters select{width:auto;min-width:180px;flex:1;}
+.tablewrap{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap;}
+th button{all:unset;cursor:pointer;font-weight:600;color:var(--text-2);}
+th button:focus-visible{outline:2px solid var(--g);}
+th[aria-sort] button::after{content:" ↕";opacity:.5;}
+th[aria-sort=ascending] button::after{content:" ↑";opacity:1;}
+th[aria-sort=descending] button::after{content:" ↓";opacity:1;}
+td.n{text-align:right;font-variant-numeric:tabular-nums;}
+.funnel{display:grid;gap:10px;}
+.funnel div{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-radius:12px;background:var(--raise-2);font-size:14.5px;}
+.funnel b{font-variant-numeric:tabular-nums;}
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap;}
+.tabs button{min-height:36px;padding:0 14px;border-radius:999px;border:0;background:var(--raise-2);color:var(--text-2);font:500 14px 'Inter',sans-serif;cursor:pointer;}
+.tabs button[aria-selected=true]{background:rgba(164,140,232,.2);color:var(--text);box-shadow:inset 0 0 0 1px var(--g);}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="wrap"><a href="index.html" aria-label="MACRO'S"><img src="img/logo-mark.webp" alt="MACRO'S" width="48" height="32"></a><span class="small">Area riservata</span></div></nav>
+
+<main class="wrap">
+  <!-- accesso: utente di Supabase Auth; i dati arrivano solo se è in waitlist_admins (controllo sul server, nelle funzioni SQL) -->
+  <section class="card login" id="login" hidden>
+    <p class="kicker">Lista d'attesa</p>
+    <h1>Dashboard riservata</h1>
+    <p class="muted">Accedi con l'account amministratore creato in Supabase.</p>
+    <form id="login-form">
+      <div class="row"><label for="em">Email</label><input id="em" type="email" autocomplete="username" required></div>
+      <div class="row"><label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" required></div>
+      <div class="row"><button class="btn btn-ea" type="submit" id="login-btn">Accedi</button></div>
+      <p id="login-msg" role="alert" class="small"></p>
+    </form>
+  </section>
+
+  <section id="dash" hidden>
+    <div class="top">
+      <div><p class="kicker" style="margin:0">MACRO'S Early Access</p><h1>Domanda per città</h1><p class="small" id="updated"></p></div>
+      <div class="actions">
+        <button class="btn btn-quiet" id="refresh" type="button">Aggiorna</button>
+        <button class="btn btn-quiet" id="csv-cities" type="button">CSV città</button>
+        <button class="btn btn-quiet" id="csv-emails" type="button">CSV iscritti confermati</button>
+        <button class="btn btn-quiet" id="logout" type="button">Esci</button>
+      </div>
+    </div>
+    <p class="notice notice-warn" style="margin:0 0 16px">Gli iscritti indicano un interesse: non sono clienti paganti e non dimostrano da soli una domanda di mercato validata.</p>
+    <div class="kpis" id="kpis"></div>
+    <div class="grid2">
+      <div class="panel chart"><h2>Iscrizioni negli ultimi 90 giorni</h2><div id="chart"></div>
+        <div class="legend"><span><i style="background:#A48CE8"></i>Iscrizioni</span><span><i style="background:#22D287"></i>Confermate</span></div></div>
+      <div class="panel"><h2>Conversione</h2><div class="funnel" id="funnel"></div><p class="small" id="funnel-note"></p></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2>Città con più iscritti confermati</h2><div class="bars" id="topcities"></div></div>
+      <div class="panel"><h2>Regioni</h2><div class="bars" id="regions"></div></div>
+    </div>
+    <div class="panel" style="margin-bottom:16px">
+      <div class="tabs" role="tablist" aria-label="Dettaglio geografico">
+        <button role="tab" aria-selected="true" data-tab="cities">Città</button>
+        <button role="tab" aria-selected="false" data-tab="provinces">Province</button>
+        <button role="tab" aria-selected="false" data-tab="regions">Regioni</button>
+      </div>
+      <div class="filters"><input type="search" id="q" placeholder="Cerca una città o provincia" aria-label="Cerca"><select id="region-filter" aria-label="Filtra per regione"><option value="">Tutte le regioni</option></select></div>
+      <div class="tablewrap"><table id="geo"></table></div>
+    </div>
+    <div class="grid2">
+      <div class="panel"><h2>Provenienza</h2><div class="tablewrap"><table id="sources"></table></div></div>
+      <div class="panel"><h2>Campagne</h2><div class="tablewrap"><table id="campaigns"></table></div></div>
+    </div>
+  </section>
+  <p id="err" role="alert" class="notice notice-error" hidden></p>
+</main>
+
+<script src="js/waitlist-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+(function(){
+  'use strict';
+  var CFG = window.WAITLIST_CONFIG || {};
+  var url = (CFG.endpoint || '').replace(/\/functions\/v1\/.*$/, '');
+  var sb = window.supabase.createClient(url, CFG.anonKey, {auth:{persistSession:true, storageKey:'macros-waitlist-admin'}});
+  var $ = function(id){ return document.getElementById(id); };
+  var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+  var nf = new Intl.NumberFormat('it-IT'), pf = new Intl.NumberFormat('it-IT', {style:'percent', maximumFractionDigits:1});
+  var DATA = null, tab = 'cities', sort = {key:'confirmed', dir:-1};
+
+  function fail(msg){ $('err').textContent = msg; $('err').hidden = false; }
+  function showLogin(){ $('login').hidden = false; $('dash').hidden = true; }
+
+  $('login-form').addEventListener('submit', function(e){
+    e.preventDefault(); $('login-btn').disabled = true; $('login-msg').textContent = '';
+    sb.auth.signInWithPassword({email:$('em').value.trim(), password:$('pw').value}).then(function(r){
+      $('login-btn').disabled = false;
+      if(r.error){ $('login-msg').textContent = 'Accesso non riuscito: controlla email e password.'; return; }
+      $('pw').value = ''; load();
+    });
+  });
+  $('logout').addEventListener('click', function(){ sb.auth.signOut().then(function(){ DATA = null; showLogin(); }); });
+  $('refresh').addEventListener('click', load);
+
+  function load(){
+    $('err').hidden = true;
+    sb.auth.getSession().then(function(s){
+      if(!s.data.session){ showLogin(); return; }
+      sb.rpc('waitlist_admin_stats').then(function(r){
+        if(r.error){
+          if(/autorizzato|42501/.test(r.error.message + r.error.code)){ fail('Questo account non è tra gli amministratori della lista d\'attesa.'); sb.auth.signOut(); showLogin(); }
+          else fail('Impossibile leggere le statistiche: ' + r.error.message);
+          return;
+        }
+        DATA = r.data; $('login').hidden = true; $('dash').hidden = false; render();
+      });
+    });
+  }
+
+  function kpi(v, label){ return '<div class="kpi"><b>' + nf.format(v || 0) + '</b><span>' + label + '</span></div>'; }
+  function bars(el, rows, nameKey){
+    var max = Math.max.apply(null, rows.map(function(r){ return r.confirmed; }).concat([1]));
+    $(el).innerHTML = rows.length ? rows.map(function(r){
+      return '<div class="bar"><span title="' + esc(r[nameKey]) + '">' + esc(r[nameKey]) + '</span><div class="track"><div class="fill" style="width:' + (100 * r.confirmed / max).toFixed(1) + '%"></div></div><em>' + nf.format(r.confirmed) + '</em></div>';
+    }).join('') : '<p class="small">Ancora nessun iscritto confermato.</p>';
+  }
+  function chart(days){
+    var W = 640, H = 200, P = 28, n = days.length || 1;
+    var max = Math.max.apply(null, days.map(function(d){ return d.signups; }).concat([1]));
+    var x = function(i){ return P + (W - 2 * P) * i / Math.max(1, n - 1); }, y = function(v){ return H - P - (H - 2 * P) * v / max; };
+    var line = function(k){ return days.map(function(d, i){ return (i ? 'L' : 'M') + x(i).toFixed(1) + ' ' + y(d[k]).toFixed(1); }).join(' '); };
+    var first = days[0] ? days[0].day : '', last = days[n - 1] ? days[n - 1].day : '';
+    $('chart').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Iscrizioni e conferme per giorno negli ultimi 90 giorni">' +
+      '<line x1="' + P + '" x2="' + (W - P) + '" y1="' + (H - P) + '" y2="' + (H - P) + '" stroke="rgba(255,255,255,.12)"/>' +
+      '<text x="' + P + '" y="' + (H - 8) + '" fill="#8C8F99" font-size="11">' + esc(first) + '</text><text x="' + (W - P) + '" y="' + (H - 8) + '" fill="#8C8F99" font-size="11" text-anchor="end">' + esc(last) + '</text>' +
+      '<text x="' + P + '" y="16" fill="#8C8F99" font-size="11">max ' + nf.format(max) + ' al giorno</text>' +
+      '<path d="' + line('signups') + '" fill="none" stroke="#A48CE8" stroke-width="2"/><path d="' + line('confirmed') + '" fill="none" stroke="#22D287" stroke-width="2"/></svg>';
+  }
+
+  function render(){
+    var t = DATA.totals || {}, f = DATA.funnel || {};
+    $('updated').textContent = 'Dati reali dal database · aggiornati ' + new Date(DATA.generated_at).toLocaleString('it-IT');
+    $('kpis').innerHTML = kpi(t.all, 'Iscrizioni totali') + kpi(t.confirmed, 'Email confermate') + kpi(t.pending, 'In attesa di conferma') +
+      kpi(t.last7, 'Nuove negli ultimi 7 giorni') + kpi(t.last30, 'Nuove negli ultimi 30 giorni') + kpi(t.marketing, 'Consenso marketing');
+    chart(DATA.daily || []);
+    var rate = function(a, b){ return b ? pf.format(a / b) : '—'; };
+    $('funnel').innerHTML = '<div><span>Visite alla landing</span><b>' + nf.format(f.visits) + '</b></div>' +
+      '<div><span>Moduli iniziati</span><b>' + nf.format(f.form_starts) + ' · ' + rate(f.form_starts, f.visits) + '</b></div>' +
+      '<div><span>Moduli inviati</span><b>' + nf.format(f.submits) + ' · ' + rate(f.submits, f.visits) + '</b></div>' +
+      '<div><span>Email confermate</span><b>' + nf.format(f.confirms) + ' · ' + rate(f.confirms, f.submits) + ' degli invii</b></div>';
+    $('funnel-note').textContent = (f.first_event ? 'Misura attiva dal ' + new Date(f.first_event).toLocaleDateString('it-IT') + '. ' : 'Nessuna visita misurata finora. ') +
+      'Le visite di chi ha attivato Do Not Track o Global Privacy Control non vengono contate, quindi il tasso di conversione reale è leggermente diverso. Il costo per contatto si ottiene dividendo la spesa di una campagna per le conferme della stessa campagna (tabella Campagne).';
+    var cities = (DATA.cities || []).slice().sort(function(a, b){ return b.confirmed - a.confirmed || b.all - a.all; });
+    bars('topcities', cities.slice(0, 10), 'city');
+    bars('regions', (DATA.regions || []), 'region');
+    var regs = Array.from(new Set((DATA.regions || []).map(function(r){ return r.region; }))).sort();
+    $('region-filter').innerHTML = '<option value="">Tutte le regioni</option>' + regs.map(function(r){ return '<option>' + esc(r) + '</option>'; }).join('');
+    simpleTable('sources', DATA.sources || [], [['source', 'Fonte'], ['medium', 'Mezzo'], ['all', 'Iscrizioni', 1], ['confirmed', 'Confermate', 1]]);
+    simpleTable('campaigns', DATA.campaigns || [], [['campaign', 'Campagna'], ['all', 'Iscrizioni', 1], ['confirmed', 'Confermate', 1]]);
+    geo();
+  }
+  function simpleTable(id, rows, cols){
+    $(id).innerHTML = '<thead><tr>' + cols.map(function(c){ return '<th scope="col">' + c[1] + '</th>'; }).join('') + '</tr></thead><tbody>' +
+      (rows.length ? rows.map(function(r){ return '<tr>' + cols.map(function(c){ return '<td' + (c[2] ? ' class="n"' : '') + '>' + (c[2] ? nf.format(r[c[0]]) : esc(r[c[0]] || '—')) + '</td>'; }).join('') + '</tr>'; }).join('')
+        : '<tr><td colspan="' + cols.length + '" class="small">Nessun dato.</td></tr>') + '</tbody>';
+  }
+
+  /* tabella geografica ordinabile, con ricerca e filtro per regione */
+  var GEO_COLS = {cities:[['city', 'Città'], ['province', 'Provincia'], ['region', 'Regione'], ['all', 'Iscrizioni', 1], ['confirmed', 'Confermate', 1], ['share', '% nazionale', 2]],
+    provinces:[['province', 'Provincia'], ['region', 'Regione'], ['all', 'Iscrizioni', 1], ['confirmed', 'Confermate', 1], ['share', '% nazionale', 2]],
+    regions:[['region', 'Regione'], ['all', 'Iscrizioni', 1], ['confirmed', 'Confermate', 1], ['share', '% nazionale', 2]]};
+  function geo(){
+    var totalConf = (DATA.totals || {}).confirmed || 0, q = $('q').value.trim().toLowerCase(), reg = $('region-filter').value;
+    var rows = (DATA[tab] || []).map(function(r){ return Object.assign({share: totalConf ? r.confirmed / totalConf : 0}, r); }).filter(function(r){
+      if(reg && r.region !== reg) return false;
+      return !q || ((r.city || '') + ' ' + (r.province || '') + ' ' + r.region).toLowerCase().indexOf(q) >= 0;
+    });
+    rows.sort(function(a, b){ var x = a[sort.key], y = b[sort.key]; return (typeof x === 'string' ? String(x).localeCompare(y, 'it') : (x - y)) * sort.dir; });
+    var cols = GEO_COLS[tab];
+    $('geo').innerHTML = '<caption class="small" style="text-align:left;caption-side:bottom;padding-top:8px">% nazionale = quota sugli iscritti confermati in tutta Italia.</caption><thead><tr>' + cols.map(function(c){
+      var s = sort.key === c[0] ? (sort.dir > 0 ? 'ascending' : 'descending') : 'none';
+      return '<th scope="col" aria-sort="' + s + '"><button type="button" data-k="' + c[0] + '">' + c[1] + '</button></th>'; }).join('') + '</tr></thead><tbody>' +
+      (rows.length ? rows.map(function(r){ return '<tr>' + cols.map(function(c){ return '<td' + (c[2] ? ' class="n"' : '') + '>' + (c[2] === 2 ? pf.format(r[c[0]]) : c[2] ? nf.format(r[c[0]]) : esc(r[c[0]])) + '</td>'; }).join('') + '</tr>'; }).join('')
+        : '<tr><td colspan="' + cols.length + '" class="small">Nessun risultato.</td></tr>') + '</tbody>';
+  }
+  $('geo').addEventListener('click', function(e){ var b = e.target.closest('button[data-k]'); if(!b) return; var k = b.dataset.k; sort = {key:k, dir: sort.key === k ? -sort.dir : (/^(all|confirmed|share)$/.test(k) ? -1 : 1)}; geo(); });
+  $('q').addEventListener('input', geo); $('region-filter').addEventListener('change', geo);
+  document.querySelectorAll('.tabs button').forEach(function(b){ b.addEventListener('click', function(){
+    tab = b.dataset.tab; document.querySelectorAll('.tabs button').forEach(function(x){ x.setAttribute('aria-selected', x === b ? 'true' : 'false'); });
+    $('q').placeholder = tab === 'regions' ? 'Cerca una regione' : 'Cerca una città o provincia'; sort = {key:'confirmed', dir:-1}; geo(); }); });
+
+  /* esportazioni: aggregate per città (nessun dato personale) e iscritti confermati (solo amministratori, dati minimi) */
+  function csv(rows, cols, name){
+    var cell = function(v){ v = v == null ? '' : String(v); if(/^[=+\-@\t\r]/.test(v)) v = "'" + v; return /[";\n,]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+    var text = '﻿' + [cols.map(function(c){ return cell(c[1]); }).join(';')].concat(rows.map(function(r){ return cols.map(function(c){ return cell(r[c[0]]); }).join(';'); })).join('\r\n');
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], {type:'text/csv;charset=utf-8'})); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  }
+  $('csv-cities').addEventListener('click', function(){ if(DATA) csv(DATA.cities || [], [['city', 'Città'], ['province', 'Provincia'], ['region', 'Regione'], ['all', 'Iscrizioni'], ['confirmed', 'Confermate']], 'macros-lista-attesa-citta.csv'); });
+  $('csv-emails').addEventListener('click', function(){
+    var mkt = confirm('Esportare solo chi ha dato il consenso alle comunicazioni commerciali?\n\nOK = solo consenso marketing · Annulla = tutti i confermati (usali solo per la lista d\'attesa)');
+    sb.rpc('waitlist_admin_export', {p_marketing_only: mkt}).then(function(r){
+      if(r.error){ fail('Esportazione non riuscita: ' + r.error.message); return; }
+      csv(r.data || [], [['email', 'Email'], ['city', 'Città'], ['province', 'Provincia'], ['region', 'Regione'], ['confirmed_at', 'Confermata il'], ['marketing_consent', 'Consenso marketing'], ['discount_code', 'Codice sconto']],
+        mkt ? 'macros-iscritti-consenso-marketing.csv' : 'macros-iscritti-confermati.csv');
+    });
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
