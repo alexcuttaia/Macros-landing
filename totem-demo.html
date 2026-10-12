@@ -12303,7 +12303,7 @@ const GROUP_ORDER_ENABLED = false;
    Funziona senza server: i link portano le voci codificate. Le voci che arrivano da un link sono
    ricalcolate con i prezzi e i valori del menù (un link modificato non può cambiare il conto) e i
    testi ripuliti. Nel Diario di chi ordina finiscono solo i suoi piatti (orderMyItems). */
-const GROUP_PUBLIC_URL = 'https://alexcuttaia.github.io/Macros/';   // i link devono aprire la versione pubblica
+const GROUP_PUBLIC_URL = 'https://app.macrosfood.it/';   // i link devono aprire la versione pubblica
 
 function groupMeName(){ return (STATE.delivery.firstName || STATE.auth.firstName || '').trim(); }
 
@@ -22030,7 +22030,7 @@ defineActions({
    utente proprio: niente profilo, diario o calcolo dei macro, e ogni cliente riparte da zero (nulla resta salvato sul
    totem). Chi vuole l'ordine nel proprio profilo inquadra il QR con il telefono (js/features/totem-link.js). */
 const TOTEM_CONFIG = {
-  appUrl: "https://alexcuttaia.github.io/Macros/",          // indirizzo dell'app per il QR; vuoto = index.html accanto al totem (la build mette quello pubblicato)
+  appUrl: "https://app.macrosfood.it/",          // indirizzo dell'app per il QR; vuoto = index.html accanto al totem (la build mette quello pubblicato)
   qrMinutes: 5,        // il QR cambia ogni 5 minuti: una foto del codice vecchio non collega più nessuno
   idleSeconds: 75,     // senza tocchi per 75 s compare «Ci sei ancora?»…
   idleCountdown: 20,   // …e dopo altri 20 s l'ordine si annulla e si torna all'inizio
